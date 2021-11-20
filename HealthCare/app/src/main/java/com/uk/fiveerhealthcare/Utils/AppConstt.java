@@ -191,6 +191,8 @@ public interface AppConstt {
         String FN_AlertsFragment = "AlertsFragment" ;
         String FN_BillAnaylsisFragment = "BillAnaylsisFragment" ;
         String FN_SignUPFBFragment ="SignUPFacebookFragment" ;
+        String FN_DoctorsFragment ="DoctorsFragment" ;
+        String FN_TreatmentFragment ="TreatmentFragment" ;
     }
 
 

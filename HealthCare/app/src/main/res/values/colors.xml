@@ -137,5 +137,8 @@
     <color name="light_blue_app">#81A1E1</color>
     <color name="light_blue_app2">#3DA9C0</color>
     <color name="green_app2">#61B738</color>
+    <color name="thm_yellow2">#FFC107</color>
+    <color name="red_app">#6B0D24</color>
+    <color name="gray_app3">#C4C4C4</color>
 </resources>
 

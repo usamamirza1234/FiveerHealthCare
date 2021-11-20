@@ -96,18 +96,21 @@ public class HomeFragment extends Fragment
 
 
 
-            lst_treatment.add(new DModelTreatment("Cardiologist",""));
-            lst_treatment.add(new DModelTreatment("Pediatrician",""));
-            lst_treatment.add(new DModelTreatment("General",""));
-            lst_treatment.add(new DModelTreatment("Homeopathy",""));
+            lst_treatment.add(new DModelTreatment("Cardiologist","Lorem ipsum dolor sit amet\n" +
+                    "Lorem ipsum dolor sit amet"));
+            lst_treatment.add(new DModelTreatment("Pediatrician","Lorem ipsum dolor sit amet\n" +
+                    "Lorem ipsum dolor sit amet"));
+            lst_treatment.add(new DModelTreatment("General","Lorem ipsum dolor sit amet\n" +
+                    "Lorem ipsum dolor sit amet"));
+            lst_treatment.add(new DModelTreatment("Homeopathy","Lorem ipsum dolor sit amet\n" +
+                    "Lorem ipsum dolor sit amet"));
 
 
             treatmentTypeRCVAdapter = new TreatmentTypeRCVAdapter(getActivity(), lst_treatment, (eventId, position) -> {
 
                 switch (eventId) {
                     case EVENT_A:
-
-
+                        navToDoctorFragment();
                         break;
                 }
 
@@ -140,5 +143,17 @@ public class HomeFragment extends Fragment
         progressDialog.show();
     }
 
+    private void navToDoctorFragment() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment frag = new DoctorsFragment();
+        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                R.anim.enter_from_left, R.anim.exit_to_right);//not required
+        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_DoctorsFragment);
 
+        ft.addToBackStack(AppConstt.FragTag.FN_DoctorsFragment);
+
+        ft.hide(this);
+        ft.commit();
+    }
 }
