@@ -141,7 +141,7 @@ public class SignInFragment extends Fragment
         if (checkPasswordError()) {
 
             AppConfig.getInstance().mUser.isLoggedIn = true;
-//            AppConfig.getInstance().saveUserProfile();
+            AppConfig.getInstance().saveUserProfile();
             navToMainActivity();
 //            JsonObject jsonObject = new JsonObject();
 //            jsonObject.addProperty("loginId", edtName.getText().toString());

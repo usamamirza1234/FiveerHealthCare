@@ -2,48 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/act_main_drawr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_1">
-
+    android:background="@color/white_1"
+    android:id="@+id/act_main_rl_MainContainer">
 
     <RelativeLayout
+        android:id="@+id/act_main_rl_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <RelativeLayout
-
-            android:id="@+id/act_main_rl_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true">
-
-        </RelativeLayout>
-
-
-        <FrameLayout
-
-            android:id="@+id/act_main_content_frg"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@id/act_main_rl_toolbar" />
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-
+        android:layout_height="@dimen/btmtabbar_height"
+        android:layout_alignParentTop="true">
+        <include layout="@layout/lay_toolbar" />
 
     </RelativeLayout>
 
+    <FrameLayout
+        android:id="@+id/act_main_content_frg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/act_main_rl_bttabbar"
+        android:layout_below="@+id/act_main_rl_toolbar" />
+    <!--<FrameLayout-->
+    <!--android:id="@+id/act_main_content_frg"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:layout_below="@+id/act_main_rl_toolbar"-->
+    <!--android:layout_marginBottom="@dimen/btmtabbar_inner_height" />-->
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/act_main_rl_bttabbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btmtabbar_inner_height"
+        android:layout_alignParentBottom="true">
+
+        <include layout="@layout/lay_bottomtab_bar" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

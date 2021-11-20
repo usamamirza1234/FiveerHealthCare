@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btmtabbar_inner_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shp_rect_top_rounded_maroon">
+
+        <LinearLayout
+            android:id="@+id/laybttab_ll_prdhome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/laybttab_chb_prdhome"
+                android:layout_width="@dimen/btmtabbar_icon_size"
+                android:layout_height="@dimen/btmtabbar_icon_size"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/slc_chb_btab_prdhome"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/laybttab_txv_prdhome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:paddingTop="@dimen/textview_font_padding_bottombar"
+                android:paddingBottom="@dimen/textview_font_padding_bottombar"
+
+                android:text="Profile"
+                android:textColor="@color/black_app2"
+                android:textSize="@dimen/fontsize_micro" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/laybttab_ll_events"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <CheckBox
+                android:id="@+id/laybttab_chb_events"
+                android:layout_width="@dimen/btmtabbar_icon_size"
+                android:layout_height="@dimen/btmtabbar_icon_size"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/slc_chb_btab_notification"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/laybttab_txv_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:paddingTop="@dimen/textview_font_padding_bottombar"
+                android:paddingBottom="@dimen/textview_font_padding_bottombar"
+                android:text="Profile"
+                android:textColor="@color/black_app2"
+
+                android:textSize="@dimen/fontsize_micro" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/laybttab_ll_profile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <CheckBox
+                android:id="@+id/laybttab_chb_profile"
+                android:layout_width="@dimen/btmtabbar_icon_size"
+                android:layout_height="@dimen/btmtabbar_icon_size"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/slc_chb_btab_search"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/laybttab_txv_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:paddingTop="@dimen/textview_font_padding_bottombar"
+                android:paddingBottom="@dimen/textview_font_padding_bottombar"
+                android:text="Profile"
+                android:textColor="@color/black_app2"
+                android:textSize="@dimen/fontsize_micro" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/laybttab_ll_more"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <CheckBox
+                android:id="@+id/laybttab_chb_more"
+                android:layout_width="@dimen/btmtabbar_icon_size"
+                android:layout_height="@dimen/btmtabbar_icon_size"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/slc_chb_btab_user"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false" />
+
+            <TextView
+                
+                android:id="@+id/laybttab_txv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:paddingTop="@dimen/textview_font_padding_bottombar"
+                android:paddingBottom="@dimen/textview_font_padding_bottombar"
+                android:text="Profile"
+                android:textColor="@color/black_app2"
+                android:textSize="@dimen/fontsize_micro" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
