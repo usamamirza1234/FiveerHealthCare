@@ -1,0 +1,34 @@
+<resources>
+    <dimen name="button_height_small">28dp</dimen>
+    <dimen name="button_height_medium">38dp</dimen>
+    <dimen name="button_height_xmedium">42dp</dimen>
+    <dimen name="button_height_xxmedium">47dp</dimen>
+    <dimen name="button_height_large">52dp</dimen>
+    <dimen name="button_radius_mini">11dp</dimen>
+    <dimen name="button_radius_small">15dp</dimen>
+    <dimen name="button_radius_xmedium">22dp</dimen>
+    <dimen name="button_radius_xxmedium">25dp</dimen>
+    <dimen name="button_radius_large">27dp</dimen>
+
+    <!--SPECAIL CASE (using fontsize_tiny) -->
+    <dimen name="pinenteryview_font_padding_top">0dp</dimen>
+
+
+
+
+
+    --------------------------------------------------------
+    <!--    new UI Dimens start here    -->
+
+
+    <dimen name="fontsize_xlarge">26sp</dimen>
+    <dimen name="fontsize_large">22sp</dimen>
+    <dimen name="fontsize_medium">22sp</dimen>
+    <dimen name="fontsize_normal">20sp</dimen>
+    <dimen name="fontsize_small">18sp</dimen>
+    <dimen name="fontsize_mini">16sp</dimen>
+    <dimen name="fontsize_tiny">14sp</dimen>
+    <dimen name="fontsize_minute">12sp</dimen>
+    <dimen name="fontsize_micro">10sp</dimen>
+    <!--SPECAIL CASE (using fontsize_tiny) -->
+</resources>

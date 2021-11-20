@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Order styling section -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toast_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shp_rect_toast"
+    android:elevation="10dp"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingEnd="15dp"
+    android:paddingStart="15dp"
+    android:paddingTop="5dp">
+
+    <TextView
+        android:id="@+id/toast_txv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/textview_font_padding"
+        android:paddingTop="@dimen/textview_font_padding"
+        android:text="Hello! This is a custom toast!"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fontsize_normal" />
+
+</LinearLayout>

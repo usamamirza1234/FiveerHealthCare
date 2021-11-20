@@ -1,0 +1,11 @@
+<resources>
+
+    <dimen name="fontsize_large">25sp</dimen>
+    <dimen name="fontsize_medium">23sp</dimen>
+    <dimen name="fontsize_normal">21sp</dimen>
+    <dimen name="fontsize_small">19sp</dimen>
+    <dimen name="fontsize_mini">17sp</dimen>
+    <dimen name="fontsize_tiny">15sp</dimen>
+    <dimen name="fontsize_micro">11sp</dimen>
+
+</resources>

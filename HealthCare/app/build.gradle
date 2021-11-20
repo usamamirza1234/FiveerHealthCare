@@ -4,7 +4,8 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "31.0.0"
+    buildToolsVersion "30.0.3"
+
 
     defaultConfig {
         applicationId "com.uk.fiveerhealthcare"
@@ -15,6 +16,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -30,10 +32,71 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
+    // Multidex for above 65K modules
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    //FCM Push Notification
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-analytics'
+
+
+
+
+    // both are for retrieving otp sms without persmission
+    // implementation 'com.google.android.gms:play-services-analytics:16.0.5'
+    implementation 'com.google.android.gms:play-services-base:11.6.0'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+
+    implementation 'com.google.android.gms:play-services-auth-api-phone:11.6.0'
+
+    //RTL Viewpaget
+    implementation 'com.duolingo.open:rtl-viewpager:2.0.0'
+    //  firebase updated sdk start...
+    implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-installations:16.3.3'
+
+
+    //Async Api calls
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    //Json class mapping
+    implementation 'com.google.code.gson:gson:2.2.4'
+    //Image downloading and caching
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //endregion
+
+    //ViewPger with line indicators
+    implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+
+    //shadow for views
+    implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+
+    implementation 'me.relex:circleindicator:1.2.2@aar'
+
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    //Graph lib
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+
+//    //Camera/Gallery Lib
+//    implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
+    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+
+
+
+
 }

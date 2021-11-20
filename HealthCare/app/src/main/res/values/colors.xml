@@ -1,10 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">@color/thm_red1</color><!--#ff2d55-->
+    <color name="colorPrimaryDark">@color/thm_grey</color>
+    <color name="colorAccent">@color/thm_blue</color>
+    <color name="green_govt">#058b45</color>
+    <color name="green_govt1">#688C79</color>
+
+
+    <color name="textColorPrimaryDark">#37474f</color>
+    <color name="textColorPrimaryLight">#F5F5F5</color>
+
+    <!-- General Colors -->
+    <color name="white">#ffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="brown">#ff4e3d29</color>
+    <color name="green">#16ca6b</color>
+    <color name="gray">#7c7c7c</color>
+    <color name="light_gray">#d3d3d3</color>
+    <color name="blue">#017fd6</color>
+    <color name="navy">#135999</color>
+    <color name="pink">#fdedf4</color>
+    <color name="carribean">#13619c</color>
+    <color name="maroon">#3f0000</color>
+    <color name="red">#ca2306</color>
+    <color name="black_1">#3C3C3C</color>
+    <color name="white_1">#F1F1F1</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="orange">#ee8d01</color>
+    <color name="bg_xdark_gray">#e2e2e2</color>
+    <!-- App Colors -->
+    <color name="thm_red">#ff2d55</color>
+    <color name="thm_blue">#007aff</color>
+    <color name="thm_grey">#E6E7E8</color>
+    <color name="thm_green">#3bb045</color>
+    <color name="thm_green_light">#00c853</color>
+    <color name="thm_yellow">#ffeb3b</color>
+    <color name="thm_yellow_1">#F8C120</color>
+    <color name="thm_yellow_2">#EF8664</color>
+    <color name="thm_error">#ca2306</color>
+    <color name="thm_card_light">#fafafa</color>
+    <color name="thm_divider">#ebebeb</color>
+    <color name="thm_text_hint">#465861</color>
+    <color name="thm_light_green">#01d768</color>
+    <color name="thm_bottomtabbar">#ff2d55</color>
+    <color name="thm_text_placehodler">#d7d7d7</color>
+    <color name="thm_bg_loader">#3c000000</color>
+    <color name="thm_shadow">#57525200</color>
+
+
+    <color name="text_gray_light">#151515</color>
+    <color name="thm_orange">#F36C3F</color>
+    <color name="thm_green1">#00BF20</color>
+    <color name="thm_green2">#1CB704</color>
+    <color name="thm_gray1">#DBDBDB</color>
+    <color name="thm_gray2">#D4F2F6</color>
+    <color name="thm_gray1_darker">#9F9F9F</color>
+    <color name="thm_orange_bright">#FF571E</color>
+    <color name="thm_orange_faded">#33FF4300</color>
+    <color name="thm_green_faded">#ABFFB9</color>
+    <color name="thm_green_bright">#06920B</color>
+
+
+    <color name="thm_red1">#D92958</color>
+    <color name="thm_blue1">#3576CA</color>
+    <color name="thm_blue2">#667487</color>
+    <color name="thm_blue_dark">#2A62AA</color>
+    <color name="thm_blue_dark1">#099b95</color>
+    <color name="thm_pink">#FFABC1</color>
+    <color name="thm_pink1">#7DD92958</color>
+    <color name="dull_white">#99ffffff</color>
+    <color name="dull_gray">#33202020</color>
+    <color name="dark_black">#202020</color>
+    <color name="dark_gray">#4B4B4B</color>
+    <color name="dark_gray1">#4D4B4B4B</color>
+    <color name="thm_divider1">#33202020</color>
+    <color name="dark_gray2">#9CC2C2C2</color>
+    <color name="dark_gray3">#4D4B4B4B</color>
+    <color name="light_gray2">#767676</color>
+    <color name="light_gray3">#606060</color>
+    <color name="pale_yellow">#FFF1C9</color>
+    <color name="thm_red3">#E1324C</color>
+    <!-- progress Bar color -->
+    <color name="progres_bar_color">#D92958</color>
+    <color name="app_red_color">#D92958</color>
+    <!-- app black color-->
+    <color name="app_black_color">#4B4B4B</color>
+    <color name="tab_text_color">#D2D2D2</color>
+
+    <color name="thm_bottomline_editext">#d1d0d0</color>
+
+    <color name="thm_txv_gray">#A0A0A0</color>
+
+    <color name="thm_deep_green">#00C435</color>
+    <color name="thm_deep_gray">#817E7B</color>
+    <color name="thm_deep_orange">#E0802F</color>
+
+    <color name="thm_blue_slc">#7D9FC5</color>
+    <color name="thm_purple">#7A76E9</color>
+    <color name="thm_gray_bg">#F1F1F1</color>
+    <color name="thm_gray_bg_dark">#707070</color>
+    <color name="thm_light_gray">#687784</color>
+    <color name="thm_dark_navy">#004390</color>
+    <color name="thm_navy">#43425D</color>
+    <color name="thm_light_yellow">#E7EF0C</color>
+    <color name="thm_light_blue">#055AC3</color>
+    <color name="thm_red_dark">#E80F1F</color>
+    <color name="thm_navy_light">#4D4F5C</color>
+    <color name="thm_gray_stoke_border">#E9E9F0</color>
+    <color name="thm_gray_stoke_border1">#D5D5D5</color>
+    <color name="thm_light_gray_stoke_border">#E9E9F0</color>
+    <color name="thm_light_navy_blue">#3F638F</color>
+    <color name="thm_light_blue_drawer">#4C7BB1</color>
+    <color name="thm_lightest_blue">#71C9FF</color>
+    <color name="thm_blue_graph_point">#07B1C7</color>
+    <color name="thm_off_white_card">#EFEFEF</color>
+    <color name="thm_dialog_bg">#99000000</color>
+    <color name="thm_dialog_txv">#7F7F7F</color>
+    <color name="thm_line">#EEEEEE</color>
+
+
+    <color name="black1">#BF000000</color>
+    <color name="thm_dark_navy1">#80004390</color>
+    <color name="thm_gray_bg_dark1">#1A707070</color>
+    <color name="thm_gray_1">#99000000</color>
+    <color name="thm_gray_2">#D9D9D9</color>
 </resources>
+

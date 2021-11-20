@@ -1,0 +1,22 @@
+<resources>
+
+    <!--region Application-->
+    <string name="app_name">MY Bills</string>
+    <string name="goole_maps_key">AIzaSyCczk1b8_C7NOm-ZXkj76y6fjBixUTV5qI</string>
+    <!--endregion-->
+
+    <!--region  Screen Titles-->
+
+    <!--endregion-->
+
+    <!--region Messages-->
+
+    <!--endregion-->
+
+    <!--region  Dialog Messages-->
+
+    <!--endregion-->
+
+
+
+</resources>
