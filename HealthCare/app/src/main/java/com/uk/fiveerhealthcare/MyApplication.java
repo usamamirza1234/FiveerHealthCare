@@ -172,28 +172,28 @@ public class MyApplication extends Application {
             DEFAULT_MONOSPACE_NORMAL_FONT_FILENAME = "fonts/jameel_noori_nastaleeq_kasheeda.ttf";
         } else {
             //English fonts
-            DEFAULT_NORMAL_BOLD_FONT_FILENAME = "fonts/Comfortaa_Bold.ttf";
-            DEFAULT_NORMAL_BOLD_ITALIC_FONT_FILENAME = "fonts/CircularStd_MediumItalic.otf";
-            DEFAULT_NORMAL_ITALIC_FONT_FILENAME = "fonts/CircularStd_BookItalic.otf";
-            DEFAULT_NORMAL_NORMAL_FONT_FILENAME = "fonts/Comfortaa_VariableFont_wght.ttf";
+            DEFAULT_NORMAL_BOLD_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_NORMAL_BOLD_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_NORMAL_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_NORMAL_NORMAL_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
 
 
-            DEFAULT_SANS_BOLD_FONT_FILENAME = "fonts/Comfortaa_Bold.ttf";
-            DEFAULT_SANS_BOLD_ITALIC_FONT_FILENAME = "fonts/CircularStd_MediumItalic.otf";
-            DEFAULT_SANS_ITALIC_FONT_FILENAME = "fonts/CircularStd_BookItalic.otf";
-            DEFAULT_SANS_NORMAL_FONT_FILENAME = "fonts/Comfortaa_VariableFont_wght.ttf";
+            DEFAULT_SANS_BOLD_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_SANS_BOLD_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_SANS_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_SANS_NORMAL_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
 
 
-            DEFAULT_SERIF_BOLD_FONT_FILENAME = "fonts/Comfortaa_Bold.ttf";
-            DEFAULT_SERIF_BOLD_ITALIC_FONT_FILENAME = "fonts/CircularStd_MediumItalic.otf";
-            DEFAULT_SERIF_ITALIC_FONT_FILENAME = "fonts/CircularStd_BookItalic.otf";
-            DEFAULT_SERIF_NORMAL_FONT_FILENAME = "fonts/Comfortaa_VariableFont_wght.ttf";
+            DEFAULT_SERIF_BOLD_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_SERIF_BOLD_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_SERIF_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_SERIF_NORMAL_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
 
 
-            DEFAULT_MONOSPACE_BOLD_FONT_FILENAME = "fonts/Comfortaa_Bold.ttf";
-            DEFAULT_MONOSPACE_BOLD_ITALIC_FONT_FILENAME = "fonts/CircularStd_MediumItalic.otf";
-            DEFAULT_MONOSPACE_ITALIC_FONT_FILENAME = "fonts/CircularStd_BookItalic.otf";
-            DEFAULT_MONOSPACE_NORMAL_FONT_FILENAME = "fonts/Comfortaa_VariableFont_wght.ttf";
+            DEFAULT_MONOSPACE_BOLD_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_MONOSPACE_BOLD_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_MONOSPACE_ITALIC_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
+            DEFAULT_MONOSPACE_NORMAL_FONT_FILENAME = "fonts/Montserrat_Regular.ttf";
         }
 
 

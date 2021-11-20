@@ -9,7 +9,7 @@
 
     <!--        />-->
 
-    <stroke android:color="@color/thm_dark_navy1" android:width="1dp"/>
+    <stroke android:color="@color/black_app2" android:width="1dp"/>
 
     <corners
         android:topLeftRadius="0dp"

@@ -11,8 +11,11 @@
 
     <!--FONTS -->
 
-    <!--FONTS -->
+    <dimen name="fontsize_extralarge">40sp</dimen>
 
+    <dimen name="fontsize_xxxxlarge">34sp</dimen>
+    <dimen name="fontsize_xxxlarge">32sp</dimen>
+    <dimen name="fontsize_xxlarge">24sp</dimen>
     <dimen name="fontsize_xlarge">22sp</dimen>
     <dimen name="fontsize_large">20sp</dimen>
     <dimen name="fontsize_medium">18sp</dimen>

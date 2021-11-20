@@ -31,7 +31,7 @@ public class IntroActivity extends AppCompatActivity implements IBadgeUpdateList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        AppConfig.getInstance().performLangCheck(getWindow());
-         AppConfig.getInstance().regulateFontScale(getResources().getConfiguration(), getBaseContext());
+        AppConfig.getInstance().regulateFontScale(getResources().getConfiguration(), getBaseContext());
         setContentView(R.layout.activity_intro);
 
         fm = getSupportFragmentManager();
@@ -81,6 +81,7 @@ public class IntroActivity extends AppCompatActivity implements IBadgeUpdateList
         setIntent(intent);
         //now getIntent() should always return the last received intent
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -94,6 +95,7 @@ public class IntroActivity extends AppCompatActivity implements IBadgeUpdateList
 
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -138,23 +140,15 @@ public class IntroActivity extends AppCompatActivity implements IBadgeUpdateList
         String tag = returnStackFragmentTag();
 
         AppConfig.getInstance().closeKeyboard(this);
-        {
-            Log.d("whileOnBackPress", " Tag " + tag);
-            if ((tag.equalsIgnoreCase(AppConstt.FragTag.FN_SignInFragment)) ||
-                    (tag.equalsIgnoreCase(AppConstt.FragTag.FN_SignUpFragment))
-                    || (tag.equalsIgnoreCase(AppConstt.FragTag.FN_ForgotPasswordFragment))
-            ) {
-                navToPreSignInVAFragment();
-            } else {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-                    getSupportFragmentManager().popBackStack();
-                    Log.d("whileOnBackPress", " 123 " + tag);
-                } else {
-                    Log.d("whileOnBackPress", " 456 " + tag);
-                    super.onBackPressed();
-                }
-            }
+
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+            Log.d("whileOnBackPress", " 123 " + tag);
+        } else {
+            Log.d("whileOnBackPress", " 456 " + tag);
+            super.onBackPressed();
         }
+
     }
 
     //region IBadgeUpdateListener
@@ -208,10 +202,7 @@ public class IntroActivity extends AppCompatActivity implements IBadgeUpdateList
     }
 
 
-
     public void navtoMainActivity() {
-//        Toast.makeText(this, "MainActivity", Toast.LENGTH_SHORT).show();
-
         if (AppConfig.getInstance().mUser.isLoggedIn()) {
             Intent intent = new Intent(this, MainActivity.class);
             //   Intent intent = new Intent(this, MainActivityOLD.class);
@@ -232,6 +223,7 @@ public class IntroActivity extends AppCompatActivity implements IBadgeUpdateList
         }
         return tag;
     }
+
     public void clearMyBackStack() {
         int count = fm.getBackStackEntryCount();
         for (int i = 0; i < count; ++i) {

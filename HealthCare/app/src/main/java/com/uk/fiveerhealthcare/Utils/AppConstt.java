@@ -190,6 +190,7 @@ public interface AppConstt {
         String FN_OutageScheduleFragment = "OutageScheduleFragment" ;
         String FN_AlertsFragment = "AlertsFragment" ;
         String FN_BillAnaylsisFragment = "BillAnaylsisFragment" ;
+        String FN_SignUPFBFragment ="SignUPFacebookFragment" ;
     }
 
 
