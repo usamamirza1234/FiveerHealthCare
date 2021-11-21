@@ -3,6 +3,10 @@
     <!--region Application-->
     <string name="app_name">Health Care</string>
     <string name="goole_maps_key">AIzaSyCczk1b8_C7NOm-ZXkj76y6fjBixUTV5qI</string>
+
+    <string name="facebook_app_id">608972723852676</string>
+    <string name="fb_login_protocol_scheme">fb608972723852676</string>
+
     <string name="frg_signin_login_accoint">Login Your Account</string>
     <string name="frg_signin_username">User Name</string>
     <string name="frg_signin_password">Password</string>

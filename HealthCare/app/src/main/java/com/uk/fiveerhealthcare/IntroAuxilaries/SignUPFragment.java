@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.uk.fiveerhealthcare.AppConfig;
 import com.uk.fiveerhealthcare.IntroActivity;
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
@@ -21,9 +23,9 @@ public class SignUPFragment extends Fragment
 
     ImageView imvfb;
     TextView txvLogin;
+    RelativeLayout rlSignup;
+    ImageView imvFB, imvLkdn, imvGogle, imvTwiter;
     private Dialog progressDialog;
-
-    ImageView imvFB,imvLkdn,imvGogle,imvTwiter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,22 +39,22 @@ public class SignUPFragment extends Fragment
 
     }
 
+    private void init() {
+    }
+
     private void bindviews(View frg) {
 
 
+        rlSignup = frg.findViewById(R.id.frg_signup_rlGetStarted);
         txvLogin = frg.findViewById(R.id.frg_signup_txvLogin);
 //        edtName = frg.findViewById(R.id.frg_signin_editTextTextPersonName);
 //        edtPassword = frg.findViewById(R.id.frg_signin_editTextTextPassword);
-
-
-
 
 
         imvGogle = frg.findViewById(R.id.frg_signup_imvgoogle);
         imvFB = frg.findViewById(R.id.frg_signup_imvfb);
         imvLkdn = frg.findViewById(R.id.frg_signup_imvlnd);
         imvTwiter = frg.findViewById(R.id.frg_signup_imvtwiter);
-
 
 
         imvGogle.setOnClickListener(this);
@@ -62,6 +64,7 @@ public class SignUPFragment extends Fragment
 
 
         txvLogin.setOnClickListener(this);
+        rlSignup.setOnClickListener(this);
 
 //        editTextWatchers();
     }
@@ -71,6 +74,11 @@ public class SignUPFragment extends Fragment
 
         switch (v.getId()) {
 
+            case R.id.frg_signup_rlGetStarted:
+                AppConfig.getInstance().mUser.isLoggedIn = true;
+                AppConfig.getInstance().saveUserProfile();
+                navToMainActivity();
+                break;
             case R.id.frg_signup_imvfb:
                 navToSignUPFBFragment("fb");
                 break;
@@ -115,7 +123,7 @@ public class SignUPFragment extends Fragment
         FragmentTransaction ft = fm.beginTransaction();
         Fragment frag = new SignUPSocialFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("key_type",type);
+        bundle.putString("key_type", type);
         frag.setArguments(bundle);
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right);//not required
@@ -127,13 +135,14 @@ public class SignUPFragment extends Fragment
         ft.commit();
     }
 
-    private void init() {
-    }
-
     private void navToMainActivity() {
         ((IntroActivity) getActivity()).navtoMainActivity();
 
     }
+
+
+
+
 //    private void checkErrorConditions() {
 //        if (checkPasswordError()) {
 //

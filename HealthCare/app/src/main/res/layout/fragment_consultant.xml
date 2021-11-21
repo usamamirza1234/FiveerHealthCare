@@ -191,6 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:layout_marginTop="10dp"
 
                 android:background="@drawable/shp_rect_rounded_blue2_small">
@@ -201,24 +202,23 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
 
+                    android:gravity="center"
                     android:padding="5dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:gravity="center"
                     android:text="Book\nAppointment"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/fontsize_mini"
-                    />
+                    android:textSize="@dimen/fontsize_mini" />
 
             </LinearLayout>
 
             <LinearLayout
-
+                android:id="@+id/frg_treatment_llEmergncySev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:layout_marginTop="10dp"
-                android:id="@+id/frg_treatment_llEmergncySev"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
                 <TextView
@@ -227,25 +227,24 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
 
+                    android:gravity="center"
                     android:padding="5dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:gravity="center"
                     android:text="Emergency\nService"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/fontsize_mini"
-                    />
+                    android:textSize="@dimen/fontsize_mini" />
 
             </LinearLayout>
 
 
             <LinearLayout
-
+                android:id="@+id/frg_treatment_llApplyHosp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:layout_marginTop="10dp"
-                android:id="@+id/frg_treatment_llApplyHosp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
                 <TextView
@@ -254,14 +253,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
 
+                    android:gravity="center"
                     android:padding="5dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:gravity="center"
                     android:text="Apply for admission in Hospital"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/fontsize_tiny"
-                    />
+                    android:textSize="@dimen/fontsize_tiny" />
 
             </LinearLayout>
         </LinearLayout>

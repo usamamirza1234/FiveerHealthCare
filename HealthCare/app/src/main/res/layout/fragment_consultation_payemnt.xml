@@ -49,12 +49,12 @@
             </LinearLayout>
 
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llConfrmTreatment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_margin="20dp"
+
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
                 <TextView
@@ -78,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:orientation="horizontal">
 
                 <CheckBox
@@ -120,12 +121,11 @@
             </LinearLayout>
 
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llConfrmTreatment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
                 <TextView
@@ -144,131 +144,129 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="150">
-
-             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="1dp"
-                android:layout_weight="30"
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="150">
 
-                >
-                <com.uk.fiveerhealthcare.Utils.RectangleImageView
-                    android:layout_width="50dp"
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="30"
 
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="false"
-                    android:layout_centerVertical="false"
-                    android:layout_marginEnd="1dp"
-                    android:elevation="2dp"
+                    android:gravity="center"
 
+                    >
 
-                    android:src="@drawable/ic_paypal" />
+                    <com.uk.fiveerhealthcare.Utils.RectangleImageView
+                        android:layout_width="50dp"
 
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="1dp"
-                android:layout_weight="30"
-
-                android:gravity="center"
-
-                >
-                <com.uk.fiveerhealthcare.Utils.RectangleImageView
-                    android:layout_width="50dp"
-
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="false"
-                    android:layout_centerVertical="false"
-                    android:layout_marginEnd="1dp"
-                    android:elevation="2dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="false"
+                        android:layout_centerVertical="false"
+                        android:layout_marginEnd="1dp"
+                        android:elevation="2dp"
 
 
-                    android:src="@drawable/ic_gold" />
+                        android:src="@drawable/ic_paypal" />
 
 
+                </RelativeLayout>
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="1dp"
-                android:layout_weight="30"
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="30"
 
-                android:gravity="center"
+                    android:gravity="center"
 
-                >
-                <com.uk.fiveerhealthcare.Utils.RectangleImageView
-                    android:layout_width="50dp"
+                    >
 
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="false"
-                    android:layout_centerVertical="false"
-                    android:layout_marginEnd="1dp"
-                    android:elevation="2dp"
+                    <com.uk.fiveerhealthcare.Utils.RectangleImageView
+                        android:layout_width="50dp"
 
-
-                    android:src="@drawable/ic_master" />
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="false"
+                        android:layout_centerVertical="false"
+                        android:layout_marginEnd="1dp"
+                        android:elevation="2dp"
 
 
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="1dp"
-                android:layout_weight="30"
-
-                android:gravity="center"
-
-                >
-                <com.uk.fiveerhealthcare.Utils.RectangleImageView
-                    android:layout_width="50dp"
-
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="false"
-                    android:layout_centerVertical="false"
-                    android:layout_marginEnd="1dp"
-                    android:elevation="2dp"
+                        android:src="@drawable/ic_gold" />
 
 
-                    android:src="@drawable/ic_cvv" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="30"
+
+                    android:gravity="center"
+
+                    >
+
+                    <com.uk.fiveerhealthcare.Utils.RectangleImageView
+                        android:layout_width="50dp"
+
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="false"
+                        android:layout_centerVertical="false"
+                        android:layout_marginEnd="1dp"
+                        android:elevation="2dp"
 
 
-
-            </RelativeLayout>
-
+                        android:src="@drawable/ic_master" />
 
 
+                </RelativeLayout>
 
-        </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="30"
+
+                    android:gravity="center"
+
+                    >
+
+                    <com.uk.fiveerhealthcare.Utils.RectangleImageView
+                        android:layout_width="50dp"
+
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="false"
+                        android:layout_centerVertical="false"
+                        android:layout_marginEnd="1dp"
+                        android:elevation="2dp"
 
 
+                        android:src="@drawable/ic_cvv" />
 
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
 
 
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
@@ -290,12 +288,11 @@
 
 
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llAdmHospt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
                 <TextView

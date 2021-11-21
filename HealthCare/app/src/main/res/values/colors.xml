@@ -25,7 +25,7 @@
     <color name="maroon">#3f0000</color>
     <color name="red">#ca2306</color>
     <color name="black_1">#3C3C3C</color>
-    <color name="white_1">#F1F1F1</color>
+    <color name="white_1">#ffffff</color>
     <color name="transparent">#00000000</color>
 
     <color name="orange">#ee8d01</color>
@@ -128,17 +128,20 @@
     <color name="thm_gray_2">#D9D9D9</color>
     <color name="green_app">#8DA43C</color>
     <color name="orange_app">#E84C3D</color>
+    <color name="pink_app">#F55376</color>
     <color name="gray_app">#CFCCCC</color>
     <color name="black_app">#2B2828</color>
     <color name="black_app2">#2A2828</color>
     <color name="purple_app">#6b0d24</color>
     <color name="blue_app">#0d79aa</color>
     <color name="blue_app2">#393EB1</color>
+    <color name="blue_app3">#0078D4</color>
     <color name="light_blue_app">#81A1E1</color>
     <color name="light_blue_app2">#3DA9C0</color>
     <color name="green_app2">#61B738</color>
     <color name="thm_yellow2">#FFC107</color>
     <color name="red_app">#6B0D24</color>
     <color name="gray_app3">#C4C4C4</color>
+    <color name="light_blue_app3">#03A9F4</color>
 </resources>
 

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginStart="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_home_ellipse_2" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginStart="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_customer_elipse" />
+
+
+        <RelativeLayout
+            android:id="@+id/frg_home_rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf="@id/frg_profile_edtgender"
+                android:src="@drawable/ic_marker" />
+
+
+            <TextView
+                android:id="@+id/frg_profile_edtgender"
+                android:layout_width="120dp"
+                android:layout_height="@dimen/edttext_height_medium"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+
+                android:gravity="start|center_vertical"
+                android:lines="1"
+                android:paddingBottom="@dimen/edttext_font_padding"
+                android:text="Welcome Ms. Rebec"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fontsize_small"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/frg_parent_home_rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/frg_home_rlHeader"
+            android:layout_margin="20dp"
+
+
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="25"
+                android:background="@null" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="65"
+
+                android:background="@color/gray_app3"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/ic_search" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edttext_height_medium"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="Search Consultant"
+                    android:text=""
+                    android:textColor="@color/thm_gray_1"
+                    android:textColorHint="@color/thm_gray_1"
+                    android:textSize="@dimen/fontsize_mini" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@null" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/shp_rect_rounded_gray3_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frg_parent_home_rlHeader"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/purple_app"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/frg_rcv_types"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="2"
+
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:horizontalSpacing="7dp"
+                android:numColumns="2"
+                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:scrollbars="none"
+                android:verticalSpacing="7dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/purple_app"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/frg_rcv_doctor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="2"
+
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:horizontalSpacing="7dp"
+                android:numColumns="2"
+                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:scrollbars="none"
+                android:verticalSpacing="7dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>

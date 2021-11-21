@@ -36,76 +36,79 @@
                     android:textSize="@dimen/fontsize_large" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <com.uk.fiveerhealthcare.Utils.CircleImageView
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="2dp"
+
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_video" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="Turn On Video"
+                        android:textColor="@color/black_app"
+                        android:textSize="@dimen/fontsize_mini" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp">
+
+                <ImageView
+
                     android:id="@+id/frg_treatmentConfirm_civProfile"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:src="@drawable/shp_circle_red" />
-            </LinearLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_profile" />
 
-            <LinearLayout
+                <RelativeLayout
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shp_circle_gray2">
 
-                android:id="@+id/frg_treatmentConfirm_llConfrmTreatment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shp_rect_rounded_blue2_small">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_call" />
 
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="Confirm\nTreatment fee"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fontsize_mini" />
-
-            </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerInParent="true" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:text="Confirm\nTreatment fee"
-                    android:textColor="@color/black_app2"
-                    android:textSize="@dimen/fontsize_mini" />
-            </LinearLayout>
-
-            <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
@@ -119,19 +122,18 @@
                     android:padding="5dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:text="Next"
+                    android:text="Let’s Start"
                     android:textColor="@color/white"
                     android:textSize="@dimen/fontsize_mini" />
 
             </LinearLayout>
 
-
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llAdmHospt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
@@ -150,6 +152,7 @@
                     android:textSize="@dimen/fontsize_tiny" />
 
             </LinearLayout>
+
         </LinearLayout>
 
 

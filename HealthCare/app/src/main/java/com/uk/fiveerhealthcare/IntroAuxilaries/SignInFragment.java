@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -29,9 +30,9 @@ public class SignInFragment extends Fragment
     EditText edtName, edtPassword;
     String str = "";
     ImageView imvfb;
+    TextView txvLogin;
+    ImageView imvFB, imvLkdn, imvGogle, imvTwiter;
     private Dialog progressDialog;
-
-    ImageView imvFB,imvLkdn,imvGogle,imvTwiter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,15 +51,14 @@ public class SignInFragment extends Fragment
 
     private void bindviews(View frg) {
 
-
+        txvLogin = frg.findViewById(R.id.frg_signup_txvLogin);
         rlSignin = frg.findViewById(R.id.frg_signin_rlLogin);
         edtName = frg.findViewById(R.id.frg_signin_edtName);
         edtPassword = frg.findViewById(R.id.frg_signin_edtPass);
 
 
-
         rlSignin.setOnClickListener(this);
-
+        txvLogin.setOnClickListener(this);
 
 
         imvGogle = frg.findViewById(R.id.frg_signup_imvgoogle);
@@ -115,10 +115,16 @@ public class SignInFragment extends Fragment
         });
 
     }
+
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.frg_signup_txvLogin:
+                navToSignInFragment();
+                break;
+
+
             case R.id.frg_signup_imvfb:
                 navToSignUPFBFragment("fb");
                 break;
@@ -142,14 +148,12 @@ public class SignInFragment extends Fragment
     }
 
 
-
-
     private void navToSignUPFBFragment(String type) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment frag = new SignUPSocialFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("key_type",type);
+        bundle.putString("key_type", type);
         frag.setArguments(bundle);
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right);//not required
@@ -190,12 +194,28 @@ public class SignInFragment extends Fragment
 
     }
 
+
+    private void navToSignInFragment() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment frag = new SignUPFragment();
+        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                R.anim.enter_from_left, R.anim.exit_to_right);//not required
+        ft.add(R.id.act_intro_content_frg, frag, AppConstt.FragTag.FN_SignUpFragment);
+
+        ft.addToBackStack(AppConstt.FragTag.FN_SignUpFragment);
+
+        ft.hide(this);
+        ft.commit();
+    }
+
     //    //region  functions for Dialog
     private void dismissProgDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
+
     private void showProgDialog() {
         progressDialog = new Dialog(getActivity(), R.style.AppTheme);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));

@@ -10,6 +10,8 @@ import android.util.LongSparseArray;
 
 import androidx.multidex.MultiDex;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
 
@@ -79,6 +81,8 @@ public class MyApplication extends Application {
         applicationContext = this;
 
         AppConfig.initInstance(mContext);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 //        if (AppConfig.getInstance().loadFCMDeviceToken().equals(""))
 //        {
 //            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -113,8 +117,6 @@ public class MyApplication extends Application {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
-
-
 
 
         if (_lang.equalsIgnoreCase(AppConstt.AppLang.LANG_UR)) {

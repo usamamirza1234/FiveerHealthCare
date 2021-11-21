@@ -16,20 +16,19 @@ import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.CircleImageView;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
-public class TreatmentPaymentFragment extends Fragment
+public class ConsultationPaymentFragment extends Fragment
         implements View.OnClickListener {
 
     Bundle bundle;
-    TextView  txvName;
+    TextView txvName;
     String strName, strDesc, strType;
     CircleImageView civProfile;
-    LinearLayout llNext;
-
-
+    LinearLayout llNext,llHospAdm,llConfrmTreatment;
+    IBadgeUpdateListener mBadgeUpdateListener;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View frg = inflater.inflate(R.layout.fragment_treatment_payemnt, container, false);
+        View frg = inflater.inflate(R.layout.fragment_consultation_payemnt, container, false);
 
         init();
         bindviews(frg);
@@ -39,7 +38,6 @@ public class TreatmentPaymentFragment extends Fragment
         return frg;
 
     }
-
 
     private void setupData() {
         txvName.setText(strName);
@@ -55,6 +53,7 @@ public class TreatmentPaymentFragment extends Fragment
         }
 
     }
+
     private void init() {
         setBottomBar();
 
@@ -71,10 +70,13 @@ public class TreatmentPaymentFragment extends Fragment
         txvName = frg.findViewById(R.id.frg_treatmentConfirm_txvName);
         civProfile = frg.findViewById(R.id.frg_treatmentConfirm_civProfile);
         llNext = frg.findViewById(R.id.frg_treatmentConfirm_llNext);
+        llHospAdm = frg.findViewById(R.id.frg_treatmentConfirm_llAdmHospt);
+        llConfrmTreatment = frg.findViewById(R.id.frg_treatmentConfirm_llConfrmTreatment);
 
 
         llNext.setOnClickListener(this);
-
+        llHospAdm.setOnClickListener(this);
+        llConfrmTreatment.setOnClickListener(this);
 
 
         //rcvDoctor = frg.findViewById(R.id.frg_rcv_doctor);
@@ -86,7 +88,16 @@ public class TreatmentPaymentFragment extends Fragment
         switch (v.getId()) {
 
             case R.id.frg_treatmentConfirm_llNext:
-                navtoPaymentNowFragment();
+                navtoPaymentNow1Fragment();
+                break;
+
+
+
+            case R.id.frg_treatment_llEmergncySev:
+                navtoPaymentNow1Fragment();
+                break;
+            case R.id.frg_treatment_llApplyHosp:
+                navtoPaymentNow1Fragment();
                 break;
 //            case R.id.frg_signup_imvfb:
 //                navToSignUPFBFragment();
@@ -98,22 +109,18 @@ public class TreatmentPaymentFragment extends Fragment
         }
     }
 
-
-
-
     void setBottomBar() {
         try {
             mBadgeUpdateListener = (IBadgeUpdateListener) getActivity();
         } catch (ClassCastException castException) {
             castException.printStackTrace(); // The activity does not implement the listener
         }
-        if (getActivity() != null && isAdded())
-        {
+        if (getActivity() != null && isAdded()) {
             mBadgeUpdateListener.setHeaderTitle("Treatment");
             mBadgeUpdateListener.setToolbarState(AppConstt.ToolbarState.TOOLBAR_VISIBLE);
         }
     }
-    IBadgeUpdateListener mBadgeUpdateListener;
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -122,25 +129,23 @@ public class TreatmentPaymentFragment extends Fragment
         }
     }
 
-    private void navtoPaymentNowFragment()
-    {
+    private void navtoPaymentNow1Fragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag = new PaymentNowFragment();
+        Fragment frag = new ConsultationPayNowFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("key_name",strName);
-        bundle.putString("key_desc",strDesc);
-        bundle.putString("key_type",strType);
+        bundle.putString("key_name", strName);
+        bundle.putString("key_desc", strDesc);
+        bundle.putString("key_type", strType);
         frag.setArguments(bundle);
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right);//not required
-        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_PaymentNowFragment);
+        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_PaymentNow1Fragment);
 
-        ft.addToBackStack(AppConstt.FragTag.FN_PaymentNowFragment);
+        ft.addToBackStack(AppConstt.FragTag.FN_PaymentNow1Fragment);
 
         ft.hide(this);
         ft.commit();
     }
-
 
 }

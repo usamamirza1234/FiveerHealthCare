@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -49,11 +50,11 @@
             </LinearLayout>
 
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llConfrmTreatment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
@@ -78,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:orientation="horizontal">
 
                 <CheckBox
@@ -95,17 +97,17 @@
                     android:padding="5dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:text="Confirm\nTreatment fee"
+                    android:text="New patient ----------------$12"
                     android:textColor="@color/black_app2"
                     android:textSize="@dimen/fontsize_mini" />
             </LinearLayout>
 
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 
@@ -127,11 +129,11 @@
 
 
             <LinearLayout
-
                 android:id="@+id/frg_treatmentConfirm_llAdmHospt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shp_rect_rounded_blue2_small">
 

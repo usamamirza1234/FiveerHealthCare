@@ -16,30 +16,57 @@ import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.CircleImageView;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
-public class TreatmentFragment extends Fragment
+public class ConsultationConfirmPaymentFragment extends Fragment
         implements View.OnClickListener {
 
-
-    IBadgeUpdateListener mBadgeUpdateListener;
     Bundle bundle;
     TextView txvDesc, txvName;
     String strName, strDesc, strType;
     CircleImageView civProfile;
-    LinearLayout llBookApt, llEmrgncySevice, llApplyAdm;
+    LinearLayout llNext,llHospAdm,llConfrmTreatment;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View frg = inflater.inflate(R.layout.fragment_treatment, container, false);
+        View frg = inflater.inflate(R.layout.fragment_confirm_payment, container, false);
 
         init();
         bindviews(frg);
         setupData();
+
         return frg;
+
     }
+
+    private void init() {
+        bundle = getArguments();
+        if (bundle != null) {
+            strName = bundle.getString("key_name");
+            strDesc = bundle.getString("key_desc");
+            strType = bundle.getString("key_type");
+        }
+        setBottomBar();
+    }
+
+    private void bindviews(View frg) {
+
+        txvName = frg.findViewById(R.id.frg_treatmentConfirm_txvName);
+        civProfile = frg.findViewById(R.id.frg_treatmentConfirm_civProfile);
+
+        llNext = frg.findViewById(R.id.frg_treatmentConfirm_llNext);
+        llHospAdm = frg.findViewById(R.id.frg_treatmentConfirm_llAdmHospt);
+        llConfrmTreatment = frg.findViewById(R.id.frg_treatmentConfirm_llConfrmTreatment);
+
+
+        llNext.setOnClickListener(this);
+        llHospAdm.setOnClickListener(this);
+        llConfrmTreatment.setOnClickListener(this);
+    }
+
 
     private void setupData() {
         txvName.setText(strName);
-        txvDesc.setText(strDesc);
+//        txvDesc.setText(strDesc);
         if (strName.equalsIgnoreCase("Dr. Murat Tuzcu")) {
             civProfile.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_dr1));
         } else if (strName.equalsIgnoreCase("Dr. Jassem Abdou")) {
@@ -52,54 +79,31 @@ public class TreatmentFragment extends Fragment
 
     }
 
-    private void init() {
-        setBottomBar();
-        bundle = getArguments();
-        if (bundle != null) {
-            strName = bundle.getString("key_name");
-            strDesc = bundle.getString("key_desc");
-            strType = bundle.getString("key_type");
-        }
-    }
-
-    private void bindviews(View frg) {
-
-        txvDesc = frg.findViewById(R.id.frg_treatment_txv_desc);
-        txvName = frg.findViewById(R.id.frg_treatment_txv_name);
-        civProfile = frg.findViewById(R.id.frg_treatment_imv_profile);
-
-        llBookApt = frg.findViewById(R.id.frg_treatment_llBookAppt);
-        llEmrgncySevice = frg.findViewById(R.id.frg_treatment_llEmergncySev);
-        llApplyAdm = frg.findViewById(R.id.frg_treatment_llApplyHosp);
-
-        llBookApt.setOnClickListener(this);
-        llEmrgncySevice.setOnClickListener(this);
-        llApplyAdm.setOnClickListener(this);
-
-    }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.frg_treatment_llBookAppt:
-                navToBookAptFragment();
+            case R.id.frg_treatmentConfirm_llNext:
+                navtoPaymentFragment();
+                break;
+            case R.id.frg_treatmentConfirm_llAdmHospt:
+                navtoPaymentFragment();
+                break;
+            case R.id.frg_treatmentConfirm_llConfrmTreatment:
+                navtoPaymentFragment();
                 break;
 
-            case R.id.frg_treatment_llEmergncySev:
-//                checkErrorConditions();
-                break;
-            case R.id.frg_treatment_llApplyHosp:
-//                checkErrorConditions();
-                break;
+
+
         }
     }
 
-
-    private void navToBookAptFragment() {
+    private void navtoPaymentFragment()
+    {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag = new TreatmentConfirmFragment();
+        Fragment frag = new ConsultationPaymentFragment();
         Bundle bundle = new Bundle();
         bundle.putString("key_name",strName);
         bundle.putString("key_desc",strDesc);
@@ -107,13 +111,14 @@ public class TreatmentFragment extends Fragment
         frag.setArguments(bundle);
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right);//not required
-        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_TreatmentConfirmFragment);
+        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_TreatmentPaymentFragment);
 
-        ft.addToBackStack(AppConstt.FragTag.FN_TreatmentConfirmFragment);
+        ft.addToBackStack(AppConstt.FragTag.FN_TreatmentPaymentFragment);
 
         ft.hide(this);
         ft.commit();
     }
+
 
     void setBottomBar() {
         try {
@@ -121,12 +126,10 @@ public class TreatmentFragment extends Fragment
         } catch (ClassCastException castException) {
             castException.printStackTrace(); // The activity does not implement the listener
         }
-        if (getActivity() != null && isAdded()) {
-            mBadgeUpdateListener.setHeaderTitle("Treatment");
+        if (getActivity() != null && isAdded())
             mBadgeUpdateListener.setToolbarState(AppConstt.ToolbarState.TOOLBAR_VISIBLE);
-        }
     }
-
+    IBadgeUpdateListener mBadgeUpdateListener;
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -134,4 +137,6 @@ public class TreatmentFragment extends Fragment
             setBottomBar();
         }
     }
+
+
 }

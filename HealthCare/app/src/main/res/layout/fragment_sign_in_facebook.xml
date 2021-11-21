@@ -50,16 +50,7 @@
         </RelativeLayout>
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/frg_signup_fb_rlHeader"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="40dp"
-            android:gravity="center">
 
-
-        </RelativeLayout>
 
 
         <RelativeLayout
@@ -111,9 +102,8 @@
                      />
                 </LinearLayout>
 
-
                 <LinearLayout
-                    android:visibility="gone"
+
                     android:id="@+id/frg_signup_llFb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,7 +130,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+
                     android:id="@+id/frg_signup_llGoogle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +139,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/shp_rect_rounded_blue_small">
+                    android:background="@drawable/shp_rect_rounded_pink_small">
 
                     <TextView
 
@@ -159,7 +149,7 @@
                         android:padding="10dp"
                         android:paddingStart="25dp"
                         android:paddingEnd="25dp"
-                        android:text="Continue with Facebook"
+                        android:text="Continue with Google"
                         android:textColor="@color/white"
                         android:textSize="@dimen/fontsize_mini"
                         android:textStyle="bold" />
@@ -167,7 +157,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/frg_signup_llLinkdin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -176,7 +165,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/shp_rect_rounded_blue_small">
+                    android:background="@drawable/shp_rect_rounded_blue3_small">
 
                     <TextView
 
@@ -186,7 +175,7 @@
                         android:padding="10dp"
                         android:paddingStart="25dp"
                         android:paddingEnd="25dp"
-                        android:text="Continue with Facebook"
+                        android:text="Continue with Linkedin"
                         android:textColor="@color/white"
                         android:textSize="@dimen/fontsize_mini"
                         android:textStyle="bold" />
@@ -194,7 +183,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+
                     android:id="@+id/frg_signup_llTwitter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -203,7 +192,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/shp_rect_rounded_blue_small">
+                    android:background="@drawable/shp_rect_rounded_light_blue3_small">
 
                     <TextView
 
@@ -213,7 +202,7 @@
                         android:padding="10dp"
                         android:paddingStart="25dp"
                         android:paddingEnd="25dp"
-                        android:text="Continue with Facebook"
+                        android:text="Continue with Twitter"
                         android:textColor="@color/white"
                         android:textSize="@dimen/fontsize_mini"
                         android:textStyle="bold" />

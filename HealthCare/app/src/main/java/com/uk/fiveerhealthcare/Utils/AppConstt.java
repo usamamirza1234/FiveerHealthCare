@@ -199,6 +199,8 @@ public interface AppConstt {
         String FN_PaymentNow1Fragment ="PaymentNow1Fragment" ;
 
         String FN_ChatRoomFragment ="FN_ChatRoomFragment" ;
+        String FN_ConsultationChatRoomFragment ="ConsultationChatRoomFragment" ;
+        String FN_CustomerProfileFragment ="CustomerProfileFragment" ;
     }
 
 

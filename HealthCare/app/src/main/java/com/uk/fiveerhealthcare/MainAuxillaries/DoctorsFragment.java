@@ -1,8 +1,6 @@
 package com.uk.fiveerhealthcare.MainAuxillaries;
 
 import android.app.Dialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -88,7 +86,7 @@ public class DoctorsFragment extends Fragment
                 switch (eventId) {
                     case EVENT_A:
 
-                        navToTreatmentFragment(lst_treatment,position);
+                        navToConsultantFragment(lst_treatment,position);
 
                         break;
                 }
@@ -120,10 +118,10 @@ public class DoctorsFragment extends Fragment
         progressDialog.show();
     }
 
-    private void navToTreatmentFragment(ArrayList<DModelDoctor> lst_treatment, int position) {
+    private void navToConsultantFragment(ArrayList<DModelDoctor> lst_treatment, int position) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag = new TreatmentFragment();
+        Fragment frag = new ConsultantFragment();
         Bundle bundle = new Bundle();
         bundle.putString("key_name",lst_treatment.get(position).getName());
         bundle.putString("key_desc",lst_treatment.get(position).getDesc());
