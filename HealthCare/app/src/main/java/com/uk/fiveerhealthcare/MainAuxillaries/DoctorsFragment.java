@@ -1,6 +1,8 @@
 package com.uk.fiveerhealthcare.MainAuxillaries;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
+import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
 import java.util.ArrayList;
 
@@ -25,8 +28,9 @@ public class DoctorsFragment extends Fragment
 
 
     DoctorRCVAdapter doctorRCVAdapter;
-    ArrayList<DModelTreatment> lst_treatment;
+    ArrayList<DModelDoctor> lst_treatment;
     RecyclerView rcvDoctor;
+    IBadgeUpdateListener mBadgeUpdateListener;
     private Dialog progressDialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +46,7 @@ public class DoctorsFragment extends Fragment
     }
 
     private void init() {
+        setBottomBar();
         lst_treatment = new ArrayList<>();
     }
 
@@ -64,7 +69,6 @@ public class DoctorsFragment extends Fragment
         }
     }
 
-
     private void populatePopulationList() {
 
 
@@ -73,21 +77,18 @@ public class DoctorsFragment extends Fragment
         if (doctorRCVAdapter == null) {
 
 
-            lst_treatment.add(new DModelTreatment("Cardiologist", "Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
-            lst_treatment.add(new DModelTreatment("Pediatrician", "Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
-            lst_treatment.add(new DModelTreatment("General", "Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
-            lst_treatment.add(new DModelTreatment("Homeopathy", "Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
+            lst_treatment.add(new DModelDoctor("Dr. Murat Tuzcu", "Cardiologist", "is the Chief Academic Officer and the Chief of Cardiovascular Medicine in the Heart and Vascular Institute at Cleveland Clinic Abu Dhabi.", getContext().getResources().getDrawable(R.drawable.ic_dr1)));
+            lst_treatment.add(new DModelDoctor("Dr. Jassem Abdou", "Asthma", "Is substantial experience with over 20 years’ experience at Zayed Military Hospital as a Consultant pulmonologist, where he also participated in the teaching residency program of Arab board in Internal Medicine.", getContext().getResources().getDrawable(R.drawable.ic_dr2)));
+            lst_treatment.add(new DModelDoctor("Dr. Julieta Zuluaga", "Blood pressure", "Dr. Julieta Zuluaga is a specialist in clinical hematology with experience working in several countries including Colombia, Spain, Italy and the UAE. She obtained her specialty training in hematolo.",getContext().getResources().getDrawable(R.drawable.ic_profile)));
+            lst_treatment.add(new DModelDoctor("Dr. Noor Hasan", "Diabetes", "Now, delivering her multi-faceted healthcare skills at ICLDC, Dr. Noor is widely recognised for taking leading roles in medical education and administration, as well her practice in internal medicine, specialising in diabetes.", getContext().getResources().getDrawable(R.drawable.ic_dr4)));
 
 
             doctorRCVAdapter = new DoctorRCVAdapter(getActivity(), lst_treatment, (eventId, position) -> {
 
                 switch (eventId) {
                     case EVENT_A:
-                        navToTreatmentFragment();
+
+                        navToTreatmentFragment(lst_treatment,position);
 
                         break;
                 }
@@ -102,7 +103,6 @@ public class DoctorsFragment extends Fragment
             doctorRCVAdapter.notifyDataSetChanged();
         }
     }
-
 
     //region  functions for Dialog
     private void dismissProgDialog() {
@@ -119,10 +119,16 @@ public class DoctorsFragment extends Fragment
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
-    private void navToTreatmentFragment() {
+
+    private void navToTreatmentFragment(ArrayList<DModelDoctor> lst_treatment, int position) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment frag = new TreatmentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("key_name",lst_treatment.get(position).getName());
+        bundle.putString("key_desc",lst_treatment.get(position).getDesc());
+        bundle.putString("key_type",lst_treatment.get(position).getType());
+        frag.setArguments(bundle);
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right);//not required
         ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_TreatmentFragment);
@@ -131,6 +137,27 @@ public class DoctorsFragment extends Fragment
 
         ft.hide(this);
         ft.commit();
+    }
+
+    void setBottomBar() {
+        try {
+            mBadgeUpdateListener = (IBadgeUpdateListener) getActivity();
+        } catch (ClassCastException castException) {
+            castException.printStackTrace(); // The activity does not implement the listener
+        }
+        if (getActivity() != null && isAdded()) {
+            mBadgeUpdateListener.setHeaderTitle("Doctor List");
+            mBadgeUpdateListener.setToolbarState(AppConstt.ToolbarState.TOOLBAR_VISIBLE);
+        }
+
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            setBottomBar();
+        }
     }
 
 }

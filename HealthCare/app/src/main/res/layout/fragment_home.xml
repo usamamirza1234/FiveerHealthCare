@@ -83,7 +83,7 @@
                         android:gravity="start"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:text="Lorem ipsum dolor sit amet,cons adipiscing elit. Ligula molestie fermentum gravida cursus "
+                        android:text="It's hard to get to the doctor when you don't drive anymore or you're struggling with several chronic medical conditions. The result may be missed appointments and a lack of needed care. can you deal with all kinds of ailments including the Cardiologist, Diabetes, Blood pressure, and Asthma."
                         android:textColor="@color/black_app"
                         android:textSize="@dimen/fontsize_mini" />
 
@@ -114,6 +114,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="40"

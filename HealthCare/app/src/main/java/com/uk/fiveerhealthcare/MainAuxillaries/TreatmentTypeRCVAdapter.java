@@ -64,20 +64,20 @@ public class TreatmentTypeRCVAdapter extends RecyclerView.Adapter<TreatmentTypeR
 //                    .into(  viewHolder.imvResults);
 
         }
-        else if (mData.get(position).getName().equalsIgnoreCase("Pediatrician"))
+        else if (mData.get(position).getName().equalsIgnoreCase("Diabetes"))
         {
             holder.llBg.setBackground(mContext.getResources().getDrawable(R.drawable.shp_rect_rounded_green));
             holder.imvResults.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_pill));
         }
-        else if (mData.get(position).getName().equalsIgnoreCase("General"))
+        else if (mData.get(position).getName().equalsIgnoreCase("Blood pressure"))
         {
             holder.llBg.setBackground(mContext.getResources().getDrawable(R.drawable.shp_rect_rounded_blue2_small));
             holder.imvResults.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_skull_heart));
         }
-        else if (mData.get(position).getName().equalsIgnoreCase("Homeopathy"))
+        else if (mData.get(position).getName().equalsIgnoreCase("Asthma"))
         {
             holder.llBg.setBackground(mContext.getResources().getDrawable(R.drawable.shp_rect_rounded_light_blue_small));
-            holder.imvResults.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_mortar_pestle));
+            holder.imvResults.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_asthma));
         }
 
         holder.llBg.setOnClickListener(v -> {

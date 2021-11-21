@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/btmtabbar_height"
     android:background="@color/transparent"
     android:orientation="vertical">
 
@@ -11,12 +11,27 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/shp_rect_bttm_rounded_maroon">
 
+        <ImageView
+            android:id="@+id/lay_toolbar_imSearch"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_search" />
 
 
+        <TextView
+            android:id="@+id/lay_toolbar_txvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="ud"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize_mini" />
 
     </RelativeLayout>
-
-
 
 
 </RelativeLayout>

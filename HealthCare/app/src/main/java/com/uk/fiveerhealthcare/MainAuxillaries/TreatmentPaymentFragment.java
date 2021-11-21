@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.uk.fiveerhealthcare.R;
+import com.uk.fiveerhealthcare.Utils.AppConstt;
+import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
 public class TreatmentPaymentFragment extends Fragment
         implements View.OnClickListener {
@@ -17,7 +19,7 @@ public class TreatmentPaymentFragment extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View frg = inflater.inflate(R.layout.fragment_treatment_confirm, container, false);
+        View frg = inflater.inflate(R.layout.fragment_treatment_payemnt, container, false);
 
         init();
         bindviews(frg);
@@ -28,7 +30,7 @@ public class TreatmentPaymentFragment extends Fragment
     }
 
     private void init() {
-
+        setBottomBar();
     }
 
     private void bindviews(View frg) {
@@ -53,6 +55,26 @@ public class TreatmentPaymentFragment extends Fragment
 
 
 
+    void setBottomBar() {
+        try {
+            mBadgeUpdateListener = (IBadgeUpdateListener) getActivity();
+        } catch (ClassCastException castException) {
+            castException.printStackTrace(); // The activity does not implement the listener
+        }
+        if (getActivity() != null && isAdded())
+        {
+            mBadgeUpdateListener.setHeaderTitle("Treatment");
+            mBadgeUpdateListener.setToolbarState(AppConstt.ToolbarState.TOOLBAR_VISIBLE);
+        }
+    }
+    IBadgeUpdateListener mBadgeUpdateListener;
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            setBottomBar();
+        }
+    }
 
 
 }

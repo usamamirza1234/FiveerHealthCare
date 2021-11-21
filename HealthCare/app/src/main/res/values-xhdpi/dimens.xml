@@ -3,8 +3,8 @@
     <!--MainActivity-->
     <dimen name="toolbar_height">70dp</dimen>
     <dimen name="btmtabbar_height">59dp</dimen>
-    <dimen name="btmtabbar_inner_height">50dp</dimen>
-    <dimen name="btmtabbar_icon_size">22dp</dimen>
+    <dimen name="btmtabbar_inner_height">60dp</dimen>
+    <dimen name="btmtabbar_icon_size">30dp</dimen>
 
     <dimen name="prb_drawable_tick_default_spacing">5dp</dimen>
 

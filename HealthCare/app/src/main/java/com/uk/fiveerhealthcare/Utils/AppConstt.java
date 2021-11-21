@@ -193,6 +193,8 @@ public interface AppConstt {
         String FN_SignUPFBFragment ="SignUPFacebookFragment" ;
         String FN_DoctorsFragment ="DoctorsFragment" ;
         String FN_TreatmentFragment ="TreatmentFragment" ;
+        String FN_TreatmentConfirmFragment ="TreatmentConfirmFragment" ;
+        String FN_TreatmentPaymentFragment ="TreatmentPaymentFragment" ;
     }
 
 

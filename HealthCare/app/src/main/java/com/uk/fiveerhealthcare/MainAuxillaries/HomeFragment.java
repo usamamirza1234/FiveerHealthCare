@@ -3,15 +3,9 @@ package com.uk.fiveerhealthcare.MainAuxillaries;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -19,11 +13,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.uk.fiveerhealthcare.AppConfig;
-import com.uk.fiveerhealthcare.IntroActivity;
-import com.uk.fiveerhealthcare.IntroAuxilaries.SignUPFacebookFragment;
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
+import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
 import java.util.ArrayList;
 
@@ -33,10 +25,11 @@ public class HomeFragment extends Fragment
         implements View.OnClickListener {
 
 
-    private Dialog progressDialog;
     TreatmentTypeRCVAdapter treatmentTypeRCVAdapter;
-    ArrayList <DModelTreatment> lst_treatment;
+    ArrayList<DModelTreatment> lst_treatment;
     RecyclerView rcvTreatment;
+    IBadgeUpdateListener mBadgeUpdateListener;
+    private Dialog progressDialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,7 +44,8 @@ public class HomeFragment extends Fragment
     }
 
     private void init() {
-        lst_treatment= new ArrayList<>();
+        setBottomBar();
+        lst_treatment = new ArrayList<>();
     }
 
     private void bindviews(View frg) {
@@ -70,6 +64,26 @@ public class HomeFragment extends Fragment
 //        editTextWatchers();
     }
 
+    void setBottomBar() {
+        try {
+            mBadgeUpdateListener = (IBadgeUpdateListener) getActivity();
+        } catch (ClassCastException castException) {
+            castException.printStackTrace(); // The activity does not implement the listener
+        }
+        if (getActivity() != null && isAdded()) {
+            mBadgeUpdateListener.setHeaderTitle("");
+            mBadgeUpdateListener.setToolbarState(AppConstt.ToolbarState.TOOLBAR_HIDDEN);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            setBottomBar();
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -85,25 +99,18 @@ public class HomeFragment extends Fragment
     }
 
 
-
     private void populatePopulationList() {
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
-        if (treatmentTypeRCVAdapter == null)
-        {
+        if (treatmentTypeRCVAdapter == null) {
 
 
-
-            lst_treatment.add(new DModelTreatment("Cardiologist","Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
-            lst_treatment.add(new DModelTreatment("Pediatrician","Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
-            lst_treatment.add(new DModelTreatment("General","Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
-            lst_treatment.add(new DModelTreatment("Homeopathy","Lorem ipsum dolor sit amet\n" +
-                    "Lorem ipsum dolor sit amet"));
+            lst_treatment.add(new DModelTreatment("Cardiologist", "Lorem ipsum dolor sit amet\n" ));
+            lst_treatment.add(new DModelTreatment("Diabetes", "Lorem ipsum dolor sit amet\n"));
+            lst_treatment.add(new DModelTreatment("Blood pressure", "Lorem ipsum dolor sit amet\n" ));
+            lst_treatment.add(new DModelTreatment("Asthma", "Lorem ipsum dolor sit amet\n" ));
 
 
             treatmentTypeRCVAdapter = new TreatmentTypeRCVAdapter(getActivity(), lst_treatment, (eventId, position) -> {
@@ -126,14 +133,13 @@ public class HomeFragment extends Fragment
     }
 
 
-
-
-  //region  functions for Dialog
+    //region  functions for Dialog
     private void dismissProgDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
+
     private void showProgDialog() {
         progressDialog = new Dialog(getActivity(), R.style.AppTheme);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));

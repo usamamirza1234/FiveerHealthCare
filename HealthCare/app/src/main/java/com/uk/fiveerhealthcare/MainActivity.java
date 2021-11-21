@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,13 +23,14 @@ import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, IBadgeUpdateListener {
 
-    private FragmentManager fm;
-
     private final byte BOTTOM_TAB_HOME = 0;
     private final byte NUM_BOTTOM_TABS = 4;
     private final byte BOTTOM_TAB_EVENT = 1;
     private final byte BOTTOM_TAB_PROFILE = 2;
     private final byte BOTTOM_TAB_MORE = 3;
+    TextView txvTitle;
+    ImageView imvSearch;
+    private FragmentManager fm;
     private RelativeLayout rlToolbar;
     private CheckBox[] arrchbBottomTab;
     private TextView[] arrtxvBottomTab;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout rlBottomTabContainer;
     private int colorBtabOn, colorBtabOff;
     private int bottomTabState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +55,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void init() {
         fm = getSupportFragmentManager();
     }
-    private void bindviews()
-    {
+
+    private void bindviews() {
+        rlToolbar = findViewById(R.id.act_main_rl_toolbar);
+        imvSearch = findViewById(R.id.lay_toolbar_imSearch);
+        txvTitle = findViewById(R.id.lay_toolbar_txvTitle);
     }
+
     public void navToHomeFragment() {
         switchBottomTab(BOTTOM_TAB_HOME);
         clearMyBackStack();
@@ -68,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.commit();
 
     }
+
     public void clearMyBackStack() {
         int count = fm.getBackStackEntryCount();
         for (int i = 0; i < count; ++i) {
@@ -134,83 +141,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void setToolbarState(byte mState) {
         switch (mState) {
-
-//            case AppConstt.ToolbarState.TOOLBAR_BOTTOMBAR_VISIBLE:
-//
-//                rlToolbar.setVisibility(View.VISIBLE);
-//                rlBottomTabContainer.setVisibility(View.VISIBLE);
-//                llBack.setVisibility(View.GONE);
-//                rlCountry.setVisibility(View.VISIBLE);
-//                toolbar_txv_name.setVisibility(View.VISIBLE);
-//                toolbar_txv_localweather.setVisibility(View.VISIBLE);
-//                imvWeather.setVisibility(View.VISIBLE);
-//
-//                break;
-//
-//
-//            case AppConstt.ToolbarState.TOOLBAR_BOTTOMBAR_HIDDEN:
-//                rlToolbar.setVisibility(View.GONE);
-//                toolbar_txv_name.setVisibility(View.VISIBLE);
-//                toolbar_txv_localweather.setVisibility(View.VISIBLE);
-//                imvWeather.setVisibility(View.VISIBLE);
-//                rlBottomTabContainer.setVisibility(View.GONE);
-//
-//                break;
-//
-//            case AppConstt.ToolbarState.BOTTOM_BAR_HIDDEN:
-//                rlToolbar.setVisibility(View.VISIBLE);
-//                rlBottomTabContainer.setVisibility(View.GONE);
-//                llBack.setVisibility(View.VISIBLE);
-//                toolbar_txv_name.setVisibility(View.VISIBLE);
-//                toolbar_txv_localweather.setVisibility(View.VISIBLE);
-//                imvWeather.setVisibility(View.VISIBLE);
-//                rlCountry.setVisibility(View.GONE);
-//                break;
-//
-//
-//            case AppConstt.ToolbarState.TOOLBAR_BOTTOMBAR_VISIBLE_BACK_VISIBLE:
-//                rlToolbar.setVisibility(View.VISIBLE);
-//                rlBottomTabContainer.setVisibility(View.VISIBLE);
-//                llBack.setVisibility(View.VISIBLE);
-//                rlCountry.setVisibility(View.GONE);
-//                toolbar_txv_name.setVisibility(View.VISIBLE);
-//                toolbar_txv_localweather.setVisibility(View.VISIBLE);
-//                imvWeather.setVisibility(View.VISIBLE);
-//
-//                break;
-//            case AppConstt.ToolbarState.TOOLBAR_WEHTER_HIDEN_BACK_VISIBLE:
-//                rlToolbar.setVisibility(View.VISIBLE);
-//                rlBottomTabContainer.setVisibility(View.GONE);
-//                llBack.setVisibility(View.VISIBLE);
-//                rlCountry.setVisibility(View.GONE);
-//                toolbar_txv_name.setVisibility(View.GONE);
-//                toolbar_txv_localweather.setVisibility(View.INVISIBLE);
-//                imvWeather.setVisibility(View.INVISIBLE);
-//
-//                break;
-//
-//            case AppConstt.ToolbarState.TOOLBAR__ONLY_WHEAHTER_VISIBLE:
-//                rlToolbar.setVisibility(View.VISIBLE);
-//                rlBottomTabContainer.setVisibility(View.VISIBLE);
-//                llBack.setVisibility(View.GONE);
-//                rlCountry.setVisibility(View.GONE);
-//                toolbar_txv_name.setVisibility(View.VISIBLE);
-//                toolbar_txv_localweather.setVisibility(View.VISIBLE);
-//                imvWeather.setVisibility(View.VISIBLE);
-//
-//                break;
-//
-//            case AppConstt.ToolbarState.MORE:
-//                rlToolbar.setVisibility(View.VISIBLE);
-//                rlBottomTabContainer.setVisibility(View.VISIBLE);
-//                llBack.setVisibility(View.GONE);
-//                rlCountry.setVisibility(View.GONE);
-//                toolbar_txv_name.setVisibility(View.VISIBLE);
-//                toolbar_txv_localweather.setVisibility(View.VISIBLE);
-//                imvWeather.setVisibility(View.VISIBLE);
-//            default:
-//                rlToolbar.setVisibility(View.GONE);
-//                break;
+            case AppConstt.ToolbarState.TOOLBAR_VISIBLE:
+                rlToolbar.setVisibility(View.VISIBLE);
+                break;
+            case AppConstt.ToolbarState.TOOLBAR_HIDDEN:
+                rlToolbar.setVisibility(View.GONE);
+                break;
+            default:
+                rlToolbar.setVisibility(View.GONE);
+                break;
 
         }
     }
@@ -231,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean setHeaderTitle(String strAppTitle) {
         try {
-
+            txvTitle.setText(strAppTitle);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -261,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 navToHomeFragment();
                 break;
-   
+
         }
     }
 
