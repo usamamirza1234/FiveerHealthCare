@@ -351,12 +351,12 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:src="@drawable/ic_twitter" />
+
                     <ImageView
                         android:id="@+id/frg_signup_imvfb"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/ic_facebook"
-                        />
+                        android:src="@drawable/ic_facebook" />
                 </LinearLayout>
 
                 <LinearLayout

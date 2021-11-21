@@ -195,6 +195,10 @@ public interface AppConstt {
         String FN_TreatmentFragment ="TreatmentFragment" ;
         String FN_TreatmentConfirmFragment ="TreatmentConfirmFragment" ;
         String FN_TreatmentPaymentFragment ="TreatmentPaymentFragment" ;
+        String FN_PaymentNowFragment ="PaymentNowFragment" ;
+        String FN_PaymentNow1Fragment ="PaymentNow1Fragment" ;
+
+        String FN_ChatRoomFragment ="FN_ChatRoomFragment" ;
     }
 
 

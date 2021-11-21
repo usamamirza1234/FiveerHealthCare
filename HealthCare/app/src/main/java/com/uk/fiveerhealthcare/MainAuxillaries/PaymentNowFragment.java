@@ -1,26 +1,29 @@
 package com.uk.fiveerhealthcare.MainAuxillaries;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.CircleImageView;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
-public class TreatmentPaymentFragment extends Fragment
+
+
+public class PaymentNowFragment extends Fragment
         implements View.OnClickListener {
 
     Bundle bundle;
-    TextView  txvName;
+    TextView txvName;
     String strName, strDesc, strType;
     CircleImageView civProfile;
     LinearLayout llNext;
@@ -29,7 +32,7 @@ public class TreatmentPaymentFragment extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View frg = inflater.inflate(R.layout.fragment_treatment_payemnt, container, false);
+        View frg = inflater.inflate(R.layout.fragment_payment_now, container, false);
 
         init();
         bindviews(frg);
@@ -86,7 +89,7 @@ public class TreatmentPaymentFragment extends Fragment
         switch (v.getId()) {
 
             case R.id.frg_treatmentConfirm_llNext:
-                navtoPaymentNowFragment();
+                navtoPaymentNow1Fragment();
                 break;
 //            case R.id.frg_signup_imvfb:
 //                navToSignUPFBFragment();
@@ -122,11 +125,11 @@ public class TreatmentPaymentFragment extends Fragment
         }
     }
 
-    private void navtoPaymentNowFragment()
+    private void navtoPaymentNow1Fragment()
     {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag = new PaymentNowFragment();
+        Fragment frag = new paymentNow1Fragment();
         Bundle bundle = new Bundle();
         bundle.putString("key_name",strName);
         bundle.putString("key_desc",strDesc);
@@ -134,9 +137,9 @@ public class TreatmentPaymentFragment extends Fragment
         frag.setArguments(bundle);
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right);//not required
-        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_PaymentNowFragment);
+        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_PaymentNow1Fragment);
 
-        ft.addToBackStack(AppConstt.FragTag.FN_PaymentNowFragment);
+        ft.addToBackStack(AppConstt.FragTag.FN_PaymentNow1Fragment);
 
         ft.hide(this);
         ft.commit();
