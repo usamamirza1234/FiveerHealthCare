@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +23,8 @@ public class SignUPFragment extends Fragment
     TextView txvLogin;
     private Dialog progressDialog;
 
+    ImageView imvFB,imvLkdn,imvGogle,imvTwiter;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View frg = inflater.inflate(R.layout.fragment_sign_up, container, false);
@@ -39,15 +39,29 @@ public class SignUPFragment extends Fragment
 
     private void bindviews(View frg) {
 
-        imvfb = frg.findViewById(R.id.frg_signup_imvfb);
+
         txvLogin = frg.findViewById(R.id.frg_signup_txvLogin);
 //        edtName = frg.findViewById(R.id.frg_signin_editTextTextPersonName);
 //        edtPassword = frg.findViewById(R.id.frg_signin_editTextTextPassword);
 
 
-        imvfb.setOnClickListener(this);
-        txvLogin.setOnClickListener(this);
 
+
+
+        imvGogle = frg.findViewById(R.id.frg_signup_imvgoogle);
+        imvFB = frg.findViewById(R.id.frg_signup_imvfb);
+        imvLkdn = frg.findViewById(R.id.frg_signup_imvlnd);
+        imvTwiter = frg.findViewById(R.id.frg_signup_imvtwiter);
+
+
+
+        imvGogle.setOnClickListener(this);
+        imvFB.setOnClickListener(this);
+        imvLkdn.setOnClickListener(this);
+        imvTwiter.setOnClickListener(this);
+
+
+        txvLogin.setOnClickListener(this);
 
 //        editTextWatchers();
     }
@@ -58,10 +72,19 @@ public class SignUPFragment extends Fragment
         switch (v.getId()) {
 
             case R.id.frg_signup_imvfb:
+                navToSignUPFBFragment("fb");
+                break;
 
-                navToSignUPFBFragment();
+            case R.id.frg_signup_imvgoogle:
+                navToSignUPFBFragment("gogl");
+                break;
 
+            case R.id.frg_signup_imvlnd:
+                navToSignUPFBFragment("lknd");
+                break;
 
+            case R.id.frg_signup_imvtwiter:
+                navToSignUPFBFragment("twitr");
                 break;
             case R.id.frg_signup_txvLogin:
 
@@ -87,10 +110,13 @@ public class SignUPFragment extends Fragment
         ft.commit();
     }
 
-    private void navToSignUPFBFragment() {
+    private void navToSignUPFBFragment(String type) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag = new SignUPFacebookFragment();
+        Fragment frag = new SignUPSocialFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("key_type",type);
+        frag.setArguments(bundle);
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right);//not required
         ft.add(R.id.act_intro_content_frg, frag, AppConstt.FragTag.FN_SignUPFBFragment);

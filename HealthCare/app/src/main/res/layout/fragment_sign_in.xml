@@ -249,25 +249,28 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/frg_signup_imvgoogle"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:src="@drawable/ic_google" />
 
                     <ImageView
+                        android:id="@+id/frg_signup_imvlnd"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:src="@drawable/ic_link" />
 
                     <ImageView
+                        android:id="@+id/frg_signup_imvtwiter"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:src="@drawable/ic_twitter" />
-
                     <ImageView
                         android:id="@+id/frg_signup_imvfb"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/ic_facebook" />
+                        android:src="@drawable/ic_facebook"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
