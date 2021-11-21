@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <RelativeLayout
 
@@ -117,29 +117,66 @@
                 android:background="@null" />
         </LinearLayout>
 
-
-        <LinearLayout
-            android:padding="10dp"
-            android:orientation="vertical"
-            android:background="@drawable/shp_rect_rounded_gray3_small"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/frg_payment_llpaynow"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/frg_parent_home_rlHeader"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shp_rect_rounded_orange_small"
+            android:gravity="center">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:text="Check status"
+                android:textColor="@color/black_app2"
+                android:textSize="@dimen/fontsize_mini"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frg_payment_llpaynow"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/shp_rect_rounded_gray3_small"
+            android:orientation="vertical"
+            android:padding="10dp">
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
-                android:background="@color/purple_app"/>
-            <androidx.recyclerview.widget.RecyclerView
+                android:background="@color/purple_app" />
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/layout_margin_end_xsmall"
+                android:layout_marginTop="@dimen/layout_margin_end_xsmall"
+                android:layout_marginEnd="@dimen/layout_margin_end_xsmall"
+                android:orientation="horizontal"
+                android:weightSum="100"> <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/frg_rcv_types"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:itemCount="2"
-
                 android:layout_marginTop="10dp"
+
+                android:layout_toStartOf="@id/frg_home_rl_next"
+                android:layout_toEndOf="@id/frg_home_rl_previous"
                 android:clipToPadding="false"
                 android:divider="@null"
                 android:horizontalSpacing="7dp"
@@ -148,27 +185,58 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:scrollbars="none"
-                android:verticalSpacing="7dp" />
+                android:verticalSpacing="7dp"
+                tools:itemCount="2" />
+                <RelativeLayout
+
+                    android:id="@+id/frg_home_rl_previous"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_arrow_back">
+
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:id="@+id/frg_home_rl_next"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_arrow_next">
+
+                </RelativeLayout>
+            </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_height"
-                android:background="@color/purple_app"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/frg_rcv_doctor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:itemCount="2"
+                android:background="@color/purple_app" />
 
-                android:layout_marginTop="10dp"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:horizontalSpacing="7dp"
-                android:numColumns="2"
-                android:padding="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:scrollbars="none"
-                android:verticalSpacing="7dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/frg_rcv_doctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginTop="10dp"
+
+                    android:clipToPadding="false"
+                    android:divider="@null"
+
+                    android:horizontalSpacing="7dp"
+                    android:numColumns="2"
+                    android:padding="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:scrollbars="none"
+                    android:verticalSpacing="7dp"
+                    tools:itemCount="2" />
+
+
+
         </LinearLayout>
 
     </RelativeLayout>

@@ -23,7 +23,7 @@ public class ConsultationPaymentFragment extends Fragment
     TextView txvName;
     String strName, strDesc, strType;
     CircleImageView civProfile;
-    LinearLayout llNext,llHospAdm,llConfrmTreatment;
+    LinearLayout llNext,llHospAdm,llConfrmTreatment,llSelectPayment;
     IBadgeUpdateListener mBadgeUpdateListener;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,14 +69,18 @@ public class ConsultationPaymentFragment extends Fragment
 
         txvName = frg.findViewById(R.id.frg_treatmentConfirm_txvName);
         civProfile = frg.findViewById(R.id.frg_treatmentConfirm_civProfile);
+
+
         llNext = frg.findViewById(R.id.frg_treatmentConfirm_llNext);
         llHospAdm = frg.findViewById(R.id.frg_treatmentConfirm_llAdmHospt);
         llConfrmTreatment = frg.findViewById(R.id.frg_treatmentConfirm_llConfrmTreatment);
+        llSelectPayment = frg.findViewById(R.id.frg_treatmentConfirm_llSelectPayment);
 
 
         llNext.setOnClickListener(this);
         llHospAdm.setOnClickListener(this);
         llConfrmTreatment.setOnClickListener(this);
+        llSelectPayment.setOnClickListener(this);
 
 
         //rcvDoctor = frg.findViewById(R.id.frg_rcv_doctor);
@@ -86,26 +90,13 @@ public class ConsultationPaymentFragment extends Fragment
     public void onClick(View v) {
 
         switch (v.getId()) {
-
+            case R.id.frg_treatmentConfirm_llAdmHospt:
             case R.id.frg_treatmentConfirm_llNext:
+            case R.id.frg_treatmentConfirm_llConfrmTreatment:
+            case R.id.frg_treatmentConfirm_llSelectPayment:
                 navtoPaymentNow1Fragment();
                 break;
 
-
-
-            case R.id.frg_treatment_llEmergncySev:
-                navtoPaymentNow1Fragment();
-                break;
-            case R.id.frg_treatment_llApplyHosp:
-                navtoPaymentNow1Fragment();
-                break;
-//            case R.id.frg_signup_imvfb:
-//                navToSignUPFBFragment();
-//                break;
-//
-//            case R.id.frg_signin_rlLogin:
-//                checkErrorConditions();
-//                break;
         }
     }
 

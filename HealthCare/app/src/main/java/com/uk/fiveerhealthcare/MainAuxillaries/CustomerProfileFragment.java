@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,7 +25,7 @@ import static com.uk.fiveerhealthcare.Utils.IAdapterCallback.EVENT_A;
 public class CustomerProfileFragment extends Fragment
         implements View.OnClickListener {
 
-
+    RelativeLayout rlPrev, rlNext;
     CustomerProfileTreatmentRCVAdapter customerProfileTreatmentRCVAdapter;
     DoctorRCVAdapter doctorRCVAdapter;
     ArrayList<DModelTreatment> lst_treatment;
@@ -54,6 +55,11 @@ public class CustomerProfileFragment extends Fragment
 
         rcvTreatment = frg.findViewById(R.id.frg_rcv_types);
         rcvDoctor = frg.findViewById(R.id.frg_rcv_doctor);
+
+        rlPrev = frg.findViewById(R.id.frg_home_rl_previous);
+        rlNext = frg.findViewById(R.id.frg_home_rl_next);
+        rlPrev.setOnClickListener(this);
+        rlNext.setOnClickListener(this);
 
     }
 
