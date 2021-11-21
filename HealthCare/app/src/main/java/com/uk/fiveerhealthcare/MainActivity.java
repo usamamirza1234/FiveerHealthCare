@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentManager fm;
     private RelativeLayout rlToolbar;
     private CheckBox[] arrchbBottomTab;
-    private TextView[] arrtxvBottomTab;
+//    private TextView[] arrtxvBottomTab;
     private LinearLayout[] arrllBottomTab;
     private RelativeLayout rlBottomTabContainer;
     private int colorBtabOn, colorBtabOff;
@@ -104,11 +104,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrchbBottomTab[BOTTOM_TAB_PROFILE] = findViewById(R.id.laybttab_chb_profile);
         arrchbBottomTab[BOTTOM_TAB_MORE] = findViewById(R.id.laybttab_chb_more);
 
-        arrtxvBottomTab = new TextView[NUM_BOTTOM_TABS];
-        arrtxvBottomTab[BOTTOM_TAB_HOME] = findViewById(R.id.laybttab_txv_prdhome);
-        arrtxvBottomTab[BOTTOM_TAB_EVENT] = findViewById(R.id.laybttab_txv_events);
-        arrtxvBottomTab[BOTTOM_TAB_PROFILE] = findViewById(R.id.laybttab_txv_profile);
-        arrtxvBottomTab[BOTTOM_TAB_MORE] = findViewById(R.id.laybttab_txv_more);
+//        arrtxvBottomTab = new TextView[NUM_BOTTOM_TABS];
+//        arrtxvBottomTab[BOTTOM_TAB_HOME] = findViewById(R.id.laybttab_txv_prdhome);
+//        arrtxvBottomTab[BOTTOM_TAB_EVENT] = findViewById(R.id.laybttab_txv_events);
+//        arrtxvBottomTab[BOTTOM_TAB_PROFILE] = findViewById(R.id.laybttab_txv_profile);
+//        arrtxvBottomTab[BOTTOM_TAB_MORE] = findViewById(R.id.laybttab_txv_more);
 
         rlBottomTabContainer = findViewById(R.id.act_main_rl_bttabbar);
 
@@ -207,8 +207,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void switchBottomTab(int tabNum) {
         for (int i = 0; i < NUM_BOTTOM_TABS; i++) {
             arrchbBottomTab[i].setChecked(i == tabNum);
-            arrtxvBottomTab[i].setTextColor((i == tabNum) ? colorBtabOn : colorBtabOff);
-            arrtxvBottomTab[i].setVisibility((i == tabNum) ? View.VISIBLE : View.GONE);
+//            arrtxvBottomTab[i].setTextColor((i == tabNum) ? colorBtabOn : colorBtabOff);
+//            arrtxvBottomTab[i].setVisibility((i == tabNum) ? View.VISIBLE : View.GONE);
             bottomTabState = i;
 //            if (i == tabNum)
 //                arrtxvBottomTab[i].setTextColor(getResources().getColor(R.color.thm_red1));
