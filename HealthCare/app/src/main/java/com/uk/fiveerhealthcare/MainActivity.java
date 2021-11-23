@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switchBottomTab(BOTTOM_TAB_HOME);
         clearMyBackStack();
         Fragment frg = new HomeFragment();
+//        Fragment frg = new HomeFragment();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.act_main_content_frg, frg, AppConstt.FragTag.FN_HomeFragment);
         ft.commit();
@@ -113,6 +114,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rlBottomTabContainer = findViewById(R.id.act_main_rl_bttabbar);
 
         setBottomTabVisiblity(View.VISIBLE);
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.laybttab_ll_prdhome:
+                navToHomeFragment();
+                break;
+
+//            case R.id.laybttab_ll_events:
+//
+//                navToHomeFragment();
+//                break;
+//
+//            case R.id.laybttab_ll_profile:
+//
+//                navToHomeFragment();
+//                break;
+//
+//            case R.id.laybttab_ll_more:
+//
+//                navToHomeFragment();
+//                break;
+
+        }
     }
     //region IBadgeUpdateListener
 
@@ -178,31 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
 
-            case R.id.laybttab_ll_prdhome:
-                navToHomeFragment();
-                break;
-
-            case R.id.laybttab_ll_events:
-
-                navToHomeFragment();
-                break;
-
-            case R.id.laybttab_ll_profile:
-
-                navToHomeFragment();
-                break;
-
-            case R.id.laybttab_ll_more:
-
-                navToHomeFragment();
-                break;
-
-        }
-    }
 
     public void switchBottomTab(int tabNum) {
         for (int i = 0; i < NUM_BOTTOM_TABS; i++) {

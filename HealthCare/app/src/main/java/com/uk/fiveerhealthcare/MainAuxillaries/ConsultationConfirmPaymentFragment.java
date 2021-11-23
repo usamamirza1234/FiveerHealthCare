@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.CircleImageView;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
+import java.util.Collections;
+
 public class ConsultationConfirmPaymentFragment extends Fragment
         implements View.OnClickListener {
 
@@ -24,6 +27,12 @@ public class ConsultationConfirmPaymentFragment extends Fragment
     String strName, strDesc, strType;
     CircleImageView civProfile;
     LinearLayout llNext,llHospAdm,llConfrmTreatment;
+
+    private final byte TOTAL_PERIOD = 2;
+    private CheckBox[] arrchbFilterPeroid;
+    private LinearLayout[] arrllFilterPeroid;
+    private final byte CHB_TODAY = 0;
+    private final byte CHB_YESTERDAY = 1;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +65,20 @@ public class ConsultationConfirmPaymentFragment extends Fragment
         llNext = frg.findViewById(R.id.frg_treatmentConfirm_llNext);
         llHospAdm = frg.findViewById(R.id.frg_treatmentConfirm_llAdmHospt);
         llConfrmTreatment = frg.findViewById(R.id.frg_treatmentConfirm_llConfrmTreatment);
+
+
+
+        arrllFilterPeroid = new LinearLayout[TOTAL_PERIOD];
+        arrllFilterPeroid[CHB_TODAY] = frg.findViewById(R.id.lay_prog_ll_today);
+        arrllFilterPeroid[CHB_YESTERDAY] = frg.findViewById(R.id.lay_prog_ll_yesterday);
+
+        for (int i = 0; i < TOTAL_PERIOD; i++)
+            arrllFilterPeroid[i].setOnClickListener(this);
+
+
+        arrchbFilterPeroid = new CheckBox[TOTAL_PERIOD];
+        arrchbFilterPeroid[CHB_TODAY] = frg.findViewById(R.id.lay_prog_chb_today);
+        arrchbFilterPeroid[CHB_YESTERDAY] = frg.findViewById(R.id.lay_prog_chb_yesterday);
 
 
         llNext.setOnClickListener(this);
@@ -93,12 +116,24 @@ public class ConsultationConfirmPaymentFragment extends Fragment
             case R.id.frg_treatmentConfirm_llConfrmTreatment:
                 navtoPaymentFragment();
                 break;
+            case R.id.lay_prog_ll_today:
 
+                switchBottomTab(CHB_TODAY);
+                break;
+            case R.id.lay_prog_ll_yesterday:
+
+                switchBottomTab(CHB_YESTERDAY);
+                break;
 
 
         }
     }
+    public void switchBottomTab(int tabNum) {
+        for (int i = 0; i < TOTAL_PERIOD; i++) {
+            arrchbFilterPeroid[i].setChecked(i == tabNum);
+        }
 
+    }
     private void navtoPaymentFragment()
     {
         FragmentManager fm = getFragmentManager();

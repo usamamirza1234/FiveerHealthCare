@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,7 @@ public class CustomerProfileFragment extends Fragment
     ArrayList<DModelDoctor> lst_doctor;
     RecyclerView rcvTreatment,rcvDoctor;
     IBadgeUpdateListener mBadgeUpdateListener;
+    RelativeLayout llStatus;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,11 +57,13 @@ public class CustomerProfileFragment extends Fragment
 
         rcvTreatment = frg.findViewById(R.id.frg_rcv_types);
         rcvDoctor = frg.findViewById(R.id.frg_rcv_doctor);
+        llStatus = frg.findViewById(R.id.frg_customer_profile_llStatus);
 
         rlPrev = frg.findViewById(R.id.frg_home_rl_previous);
         rlNext = frg.findViewById(R.id.frg_home_rl_next);
         rlPrev.setOnClickListener(this);
         rlNext.setOnClickListener(this);
+        llStatus.setOnClickListener(this);
 
     }
 
@@ -87,9 +91,9 @@ public class CustomerProfileFragment extends Fragment
     public void onClick(View v) {
 
         switch (v.getId()) {
-//            case R.id.frg_signup_imvfb:
-//                navToSignUPFBFragment();
-//                break;
+            case R.id.frg_customer_profile_llStatus:
+                navtoPatientProfileFragment();
+                break;
 //
 //            case R.id.frg_signin_rlLogin:
 //                checkErrorConditions();
@@ -141,7 +145,7 @@ public class CustomerProfileFragment extends Fragment
             lst_doctor.add(new DModelDoctor("Dr. Murat Tuzcu", "Cardiologist", "is the Chief Academic Officer and the Chief of Cardiovascular Medicine in the Heart and Vascular Institute at Cleveland Clinic Abu Dhabi.", getContext().getResources().getDrawable(R.drawable.ic_dr1)));
             lst_doctor.add(new DModelDoctor("Dr. Jassem Abdou", "Asthma", "Is substantial experience with over 20 years’ experience at Zayed Military Hospital as a Consultant pulmonologist, where he also participated in the teaching residency program of Arab board in Internal Medicine.", getContext().getResources().getDrawable(R.drawable.ic_dr2)));
             lst_doctor.add(new DModelDoctor("Dr. Julieta Zuluaga", "Blood pressure", "Dr. Julieta Zuluaga is a specialist in clinical hematology with experience working in several countries including Colombia, Spain, Italy and the UAE. She obtained her specialty training in hematolo.",getContext().getResources().getDrawable(R.drawable.ic_profile)));
-            lst_doctor.add(new DModelDoctor("Dr. Noor Hasan", "Diabetes", "Now, delivering her multi-faceted healthcare skills at ICLDC, Dr. Noor is widely recognised for taking leading roles in medical education and administration, as well her practice in internal medicine, specialising in diabetes.", getContext().getResources().getDrawable(R.drawable.ic_dr4)));
+            lst_doctor.add(new DModelDoctor("Dr. Noor Hasan", "Diabetes", "Delivering her multi-faceted healthcare skills     at ICLDC, Dr. Noor is widely recognised for taking leading roles in medical education and administration, as well her practice in internal medicine, specialising in diabetes.", getContext().getResources().getDrawable(R.drawable.ic_dr4)));
 
 
             doctorRCVAdapter = new DoctorRCVAdapter(getActivity(), lst_doctor, (eventId, position) -> {
@@ -165,5 +169,19 @@ public class CustomerProfileFragment extends Fragment
         }
     }
 
+    private void navtoPatientProfileFragment() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment frag = new PatientProfileFragment();
 
+
+        ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                R.anim.enter_from_left, R.anim.exit_to_right);//not required
+        ft.add(R.id.act_main_content_frg, frag, AppConstt.FragTag.FN_PatientProfileFragment);
+
+        ft.addToBackStack(AppConstt.FragTag.FN_PatientProfileFragment);
+
+        ft.hide(this);
+        ft.commit();
+    }
 }

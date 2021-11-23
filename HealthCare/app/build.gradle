@@ -101,6 +101,7 @@ dependencies {
 
     implementation 'com.paypal.sdk:paypal-android-sdk:2.14.2'
     implementation 'com.github.bumptech.glide:glide:4.0.0'
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.robinhood.spark:spark:1.2.0'
     implementation 'com.facebook.android:facebook-android-sdk:[5,6]'
 }

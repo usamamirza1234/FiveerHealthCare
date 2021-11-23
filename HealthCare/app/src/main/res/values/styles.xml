@@ -77,4 +77,5 @@
         <item name="colorControlActivated">@color/thm_yellow2</item>
         <item name="android:clickable">false</item>
     </style>
+
 </resources>

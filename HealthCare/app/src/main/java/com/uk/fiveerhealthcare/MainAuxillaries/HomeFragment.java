@@ -107,10 +107,10 @@ public class HomeFragment extends Fragment
         if (treatmentTypeRCVAdapter == null) {
 
 
-            lst_treatment.add(new DModelTreatment("Cardiologist", "Lorem ipsum dolor sit amet\n" ));
-            lst_treatment.add(new DModelTreatment("Diabetes", "Lorem ipsum dolor sit amet\n"));
-            lst_treatment.add(new DModelTreatment("Blood pressure", "Lorem ipsum dolor sit amet\n" ));
-            lst_treatment.add(new DModelTreatment("Asthma", "Lorem ipsum dolor sit amet\n" ));
+            lst_treatment.add(new DModelTreatment("Cardiologist", "" ));
+            lst_treatment.add(new DModelTreatment("Diabetes", ""));
+            lst_treatment.add(new DModelTreatment("Blood pressure", "" ));
+            lst_treatment.add(new DModelTreatment("Asthma", "" ));
 
 
             treatmentTypeRCVAdapter = new TreatmentTypeRCVAdapter(getActivity(), lst_treatment, (eventId, position) -> {
