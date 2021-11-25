@@ -1,6 +1,8 @@
 package com.uk.fiveerhealthcare.IntroAuxilaries;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,7 +33,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.uk.fiveerhealthcare.AppConfig;
 import com.uk.fiveerhealthcare.IntroActivity;
 import com.uk.fiveerhealthcare.R;
@@ -45,6 +54,9 @@ import java.util.Arrays;
 
 public class SignUPSocialFragment extends Fragment
         implements View.OnClickListener {
+    FirebaseFirestore database;
+    FirebaseAuth auth;
+
 
     private static final int RC_SIGN_IN = 9001;
     TextView txvLogin;
@@ -60,7 +72,8 @@ public class SignUPSocialFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View frg = inflater.inflate(R.layout.fragment_sign_in_facebook, container, false);
-
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
         init();
         bindviews(frg);
         setdata();
@@ -219,6 +232,7 @@ public class SignUPSocialFragment extends Fragment
 
     //region Google Facebook Integration
     private void facebookSignin() {
+        showProgDialog();
         Log.i("LoginActivity", "FB Login ");
         callbackManager = CallbackManager.Factory.create();
 //                llFB.setReadPermissions(Arrays.asList(EMAIL));
@@ -226,6 +240,7 @@ public class SignUPSocialFragment extends Fragment
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+                        dismissDialog();
                         // App code
                         Log.i("LoginActivity", "FB Login Success");
 //                                final AccessToken accessToken = loginResult.getAccessToken();
@@ -306,7 +321,7 @@ public class SignUPSocialFragment extends Fragment
                     }
 
                     @Override
-                    public void onCancel() {
+                    public void onCancel() {   dismissDialog();
                         // App code
                         Log.i("LoginActivity", "FB Login Cancel");
                         LoginManager.getInstance().logOut();
@@ -315,6 +330,7 @@ public class SignUPSocialFragment extends Fragment
 
                     @Override
                     public void onError(FacebookException exception) {
+                        dismissDialog();
                         // App code
                         Log.i("LoginActivity", "FB Login Error");
                         Toast.makeText(getContext(), "error_login", Toast.LENGTH_SHORT).show();
@@ -332,6 +348,8 @@ public class SignUPSocialFragment extends Fragment
 
 
     private void googleInit() {
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -351,6 +369,7 @@ public class SignUPSocialFragment extends Fragment
     }
 
     public void googleSignIn() {
+        showProgDialog();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -365,7 +384,7 @@ public class SignUPSocialFragment extends Fragment
         }
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Log.d("LoginActivity", "LoginActivity: google sign in " + data.toString());
+            Log.d("LoginActivity", "Google SignIn " + data.toString());
             // The Task returned from this call is always completed, no need to attach
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
@@ -374,29 +393,59 @@ public class SignUPSocialFragment extends Fragment
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
+            dismissDialog();
             account = completedTask.getResult(ApiException.class);
             acct = GoogleSignIn.getLastSignedInAccount(getActivity());
             Log.d("LoginActivity", "Google Obj : " + acct.getId());
 
             if (acct != null) {
-//                googleUserEmail = acct.getEmail();
-//                googleSocailID = acct.getId()
-//                requestSocial(acct.getEmail(),"");
-//
-//                JsonObject jsonObject = new JsonObject();
-//                jsonObject.addProperty("name", acct.getDisplayName());
-//                jsonObject.addProperty("email", googleUserEmail);
-//                jsonObject.addProperty("social_id", googleSocailID);
-//                jsonObject.addProperty("social_platform", "google");
-//                jsonObject.addProperty("user_type", "user");
-//                jsonObject.addProperty("city_id", "1");
-//                jsonObject.addProperty("city", "jaddah");
-//                jsonObject.addProperty("device_token", AppConfig.getInstance().loadFCMDeviceToken());
-//                jsonObject.addProperty("login_type", "social");
-//                jsonObject.addProperty("device_type", "android");
-//                Log.d("LOG_AS", "Google Sign IN JSON : " + jsonObject.toString());
-//
-//                requestSignInGoogle(jsonObject.toString());
+
+                final User user = new User();
+                user.setEmail(acct.getEmail());
+                user.setPassword("social");
+                user.setName(acct.getDisplayName());
+
+                auth.createUserWithEmailAndPassword(acct.getEmail(), "social").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            database.collection("Users")
+                                    .document().set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                    if (!AppConfig.getInstance().database.checkUser(acct.getEmail().trim())) {
+
+                                        AppConfig.getInstance().mUser.setName(acct.getDisplayName().trim());
+                                        AppConfig.getInstance().mUser.setEmail(acct.getEmail().toString());
+                                        AppConfig.getInstance().mUser.isLoggedIn = true;
+                                        AppConfig.getInstance().saveUserProfile();
+
+                                        AppConfig.getInstance().database.addUser(user);
+                                        CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+                                        ((IntroActivity) getActivity()).navtoMainActivity();
+                                    } else if (AppConfig.getInstance().database.checkUser(acct.getEmail().toString().trim()
+                                            , "social".trim())) {
+                                        CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+                                        AppConfig.getInstance().mUser.setName(acct.getDisplayName().trim());
+                                        AppConfig.getInstance().mUser.setEmail(acct.getEmail().toString());
+                                        AppConfig.getInstance().mUser.isLoggedIn = true;
+
+                                        AppConfig.getInstance().saveUserProfile();
+                                        ((IntroActivity) getActivity()).navtoMainActivity();
+                                    } else {
+                                        CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                                    }
+
+
+                                }
+                            });
+//                            Toast.makeText(SignupActivity.this, "Account is created.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                        }
+                    }
+                });
             }
 
 
@@ -404,7 +453,7 @@ public class SignUPSocialFragment extends Fragment
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("LOG_AS", "signInResult:failed code=" + e.toString());
+            Log.w("LoginActivity", "signInResult:failed code=" + e.toString());
             CustomToast.showToastMessage(getActivity(), "Sign in to google is FAILED!" + e.toString(), Toast.LENGTH_LONG);
             // updateUI(null);
         }
@@ -412,6 +461,19 @@ public class SignUPSocialFragment extends Fragment
 
 
     //endregion
+    private Dialog progressDialog;
+    private void dismissDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
 
+    private void showProgDialog() {
+        progressDialog = new Dialog(getActivity(), R.style.AppTheme);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progressDialog.setContentView(R.layout.dialog_progress);
 
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
 }

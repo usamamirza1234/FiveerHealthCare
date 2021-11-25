@@ -12,6 +12,7 @@ import androidx.multidex.MultiDex;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
 
@@ -83,6 +84,7 @@ public class MyApplication extends Application {
         AppConfig.initInstance(mContext);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        FirebaseApp.initializeApp(mContext);
 //        if (AppConfig.getInstance().loadFCMDeviceToken().equals(""))
 //        {
 //            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {

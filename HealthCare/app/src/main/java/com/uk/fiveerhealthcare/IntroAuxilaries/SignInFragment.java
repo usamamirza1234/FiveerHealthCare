@@ -1,6 +1,7 @@
 package com.uk.fiveerhealthcare.IntroAuxilaries;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,19 +15,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.uk.fiveerhealthcare.AppConfig;
 import com.uk.fiveerhealthcare.IntroActivity;
 import com.uk.fiveerhealthcare.R;
+import com.uk.fiveerhealthcare.User;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.CustomToast;
 
 public class SignInFragment extends Fragment
         implements View.OnClickListener {
-
+    FirebaseFirestore database;
+    FirebaseAuth auth;
     RelativeLayout rlSignin, rlSignUp, rlForgot;
     EditText edtName, edtPassword;
     String str = "";
@@ -47,7 +57,8 @@ public class SignInFragment extends Fragment
 
     }
 
-    private void init() {
+    private void init() {   auth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
     }
 
     private void bindviews(View frg) {
@@ -174,8 +185,23 @@ public class SignInFragment extends Fragment
     private void checkErrorConditions() {
         if (checkPasswordError()) {
 
+            auth.signInWithEmailAndPassword(edtName.getText().toString().trim(), edtPassword.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
 
-            verifyFromSQLite();
+                    if(task.isSuccessful())
+                    {
+                        AppConfig.getInstance().mUser.setName(edtName.getText().toString());
+                        AppConfig.getInstance().mUser.setEmail(edtName.getText().toString());
+                        AppConfig.getInstance().mUser.isLoggedIn = true;
+                        AppConfig.getInstance().saveUserProfile();
+                        ((IntroActivity) getActivity()).navtoMainActivity();
+                    } else {
+                        CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                    }
+                }
+            });
+//            verifyFromSQLite();
         }
     }
 

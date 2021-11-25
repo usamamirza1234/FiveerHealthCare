@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "360147229550",
+    "project_id": "healthcare-6499d",
+    "storage_bucket": "healthcare-6499d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360147229550:android:cd9c11c0799ea3d6a67f7f",
+        "android_client_info": {
+          "package_name": "com.uk.fiveerhealthcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360147229550-ektbcm9jb2ol3mp16fa0q88nu8pnl230.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uk.fiveerhealthcare",
+            "certificate_hash": "fd7d1fc330688485bfbfe5c5e560d2076c5a3cf9"
+          }
+        },
+        {
+          "client_id": "360147229550-d2bcph9km51afsjsgm3bog9t7qcqdm3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxu9GGs9E37MCjpBwd_J_hwiEthqkyLNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360147229550-d2bcph9km51afsjsgm3bog9t7qcqdm3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

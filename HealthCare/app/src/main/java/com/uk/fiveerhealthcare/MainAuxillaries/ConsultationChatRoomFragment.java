@@ -1,9 +1,13 @@
 package com.uk.fiveerhealthcare.MainAuxillaries;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,8 +18,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
-import com.uk.fiveerhealthcare.Utils.CircleImageView;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
+
+import org.jitsi.meet.sdk.JitsiMeet;
+import org.jitsi.meet.sdk.JitsiMeetActivity;
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class ConsultationChatRoomFragment extends Fragment
@@ -27,16 +37,40 @@ public class ConsultationChatRoomFragment extends Fragment
     LinearLayout llNext;
     LinearLayout llAdmHospt;
     IBadgeUpdateListener mBadgeUpdateListener;
+    View frg;
+    EditText secretCodeBox;
+    Button joinBtn, shareBtn;
+    private Dialog progressDialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View frg = inflater.inflate(R.layout.fragment_consultation_chatroom, container, false);
+        frg = inflater.inflate(R.layout.fragment_consultation_chatroom, container, false);
 
         init();
+
+
         bindviews(frg);
         setupData();
-
+        setupCall();
         return frg;
+
+    }
+
+    private void setupCall() {
+
+        URL serverURL;
+        try {
+            serverURL = new URL("https://meet.jit.si");
+            JitsiMeetConferenceOptions defaultOptions =
+                    new JitsiMeetConferenceOptions.Builder()
+                            .setServerURL(serverURL)
+                            .setWelcomePageEnabled(false)
+                            .build();
+            JitsiMeet.setDefaultConferenceOptions(defaultOptions);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -51,8 +85,8 @@ public class ConsultationChatRoomFragment extends Fragment
 
     }
 
-    private void bindviews(View frg) {
 
+    private void bindviews(View frg) {
 
         llNext = frg.findViewById(R.id.frg_treatmentConfirm_llNext);
         llAdmHospt = frg.findViewById(R.id.frg_treatmentConfirm_llAdmHospt);
@@ -63,6 +97,7 @@ public class ConsultationChatRoomFragment extends Fragment
 
 
     }
+
     private void setupData() {
         txvName.setText(strName);
 
@@ -84,6 +119,11 @@ public class ConsultationChatRoomFragment extends Fragment
         switch (v.getId()) {
 
             case R.id.frg_treatmentConfirm_llNext:
+                showProgDialog();
+                navtoCustomerProfileFragment();
+                break;
+            case R.id.frg_treatmentConfirm_llAdmHospt:
+
                 navtoCustomerProfileFragment();
                 break;
 
@@ -126,6 +166,36 @@ public class ConsultationChatRoomFragment extends Fragment
 
         ft.hide(this);
         ft.commit();
+    }
+
+
+    private void dismissDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    private void showProgDialog() {
+        progressDialog = new Dialog(getActivity(), R.style.AppTheme);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progressDialog.setContentView(R.layout.dialog_video_call);
+        secretCodeBox = progressDialog.findViewById(R.id.codeBox);
+        joinBtn = progressDialog.findViewById(R.id.joinBtn);
+        shareBtn = progressDialog.findViewById(R.id.shareBtn);
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissDialog();
+                JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+                        .setRoom(secretCodeBox.getText().toString())
+                        .setWelcomePageEnabled(false)
+                        .build();
+
+                JitsiMeetActivity.launch(getActivity(), options);
+            }
+        });
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 }
 

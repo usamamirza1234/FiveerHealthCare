@@ -11,10 +11,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.uk.fiveerhealthcare.AppConfig;
 import com.uk.fiveerhealthcare.IntroActivity;
 import com.uk.fiveerhealthcare.R;
@@ -24,20 +31,20 @@ import com.uk.fiveerhealthcare.Utils.CustomToast;
 
 public class SignUPFragment extends Fragment
         implements View.OnClickListener {
-
+    FirebaseFirestore database;
+    FirebaseAuth auth;
     ImageView imvfb;
     TextView txvLogin;
     RelativeLayout rlSignup;
     ImageView imvFB, imvLkdn, imvGogle, imvTwiter;
+    EditText edtName, edtLastname, edtPass, edtEmail;
     private Dialog progressDialog;
-
-    EditText edtName,edtLastname,edtPass,edtEmail;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View frg = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
-//        init();
+        init();
         bindviews(frg);
 
 
@@ -46,6 +53,8 @@ public class SignUPFragment extends Fragment
     }
 
     private void init() {
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
     }
 
     private void bindviews(View frg) {
@@ -78,11 +87,43 @@ public class SignUPFragment extends Fragment
 
 //        editTextWatchers();
     }
+
     private void checkErrorConditions() {
         if (checkPasswordError()) {
 
+            final User user = new User();
+            user.setName(edtName.getText().toString().trim() + " " + edtLastname.getText().toString().trim());
+            user.setEmail(edtEmail.getText().toString().trim());
+            user.setPassword(edtPass.getText().toString().trim());
+            auth.createUserWithEmailAndPassword(edtEmail.getText().toString().trim(), edtPass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful())
+                    {
+                        database.collection("Users")
+                                .document().set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                AppConfig.getInstance().mUser.setName(edtName.getText().toString().trim() + " " + edtLastname.getText().toString().trim());
+                                AppConfig.getInstance().mUser.setEmail(edtName.getText().toString());
+                                AppConfig.getInstance().mUser.isLoggedIn = true;
+                                AppConfig.getInstance().saveUserProfile();
+                                ((IntroActivity) getActivity()).navtoMainActivity();
+                            }
 
-            postDataToSQLite();
+                        });
+
+                        CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+                    }
+                    else {
+                        CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                    }
+                }
+            });
+
+
+
+//            postDataToSQLite();
         }
     }
 
@@ -170,25 +211,44 @@ public class SignUPFragment extends Fragment
 
 
     private void postDataToSQLite() {
+        final User user = new User();
+        user.setName(edtName.getText().toString().trim() + " " + edtLastname.getText().toString().trim());
+        user.setEmail(edtEmail.getText().toString().trim());
+        user.setPassword(edtPass.getText().toString().trim());
+        auth.createUserWithEmailAndPassword(edtEmail.getText().toString().trim(), edtPass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    database.collection("Users")
+                            .document().set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+                            ((IntroActivity) getActivity()).navtoMainActivity();
 
-        if (!AppConfig.getInstance().database.checkUser(edtEmail.getText().toString().trim()))
-        {
 
-            AppConfig.getInstance().mUser.setName(edtName.getText().toString()+" " + edtLastname.getText().toString());
-            AppConfig.getInstance().mUser.setEmail(edtEmail.getText().toString());
-            AppConfig.getInstance().mUser.isLoggedIn = true;
-            AppConfig.getInstance().saveUserProfile();
-            User user = new User();
-            user.setName(edtName.getText().toString().trim()+" " + edtLastname.getText().toString().trim());
-            user.setEmail(edtEmail.getText().toString().trim());
-            user.setPassword(edtPass.getText().toString().trim());
-            AppConfig.getInstance().database.addUser(user);
-            CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
-            ((IntroActivity) getActivity()).navtoMainActivity();
-        } else {
-            CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+//                            if (!AppConfig.getInstance().database.checkUser(edtEmail.getText().toString().trim()))
+//                            {
+//                                AppConfig.getInstance().mUser.setName(edtName.getText().toString()+" " + edtLastname.getText().toString());
+//                                AppConfig.getInstance().mUser.setEmail(edtEmail.getText().toString());
+//                                AppConfig.getInstance().mUser.isLoggedIn = true;
+//                                AppConfig.getInstance().saveUserProfile();
+//
+//                                AppConfig.getInstance().database.addUser(user);
+//                                CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+//                                ((IntroActivity) getActivity()).navtoMainActivity();
+//                            } else {
+//                                CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+//                            }
+                        }
+                    });
 
-        }
+                } else {
+                    CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                }
+            }
+        });
+
     }
 
 //    private void checkErrorConditions() {
