@@ -120,7 +120,7 @@ public class ConsultationChatRoomFragment extends Fragment
 
             case R.id.frg_treatmentConfirm_llNext:
                 showProgDialog();
-                navtoCustomerProfileFragment();
+
                 break;
             case R.id.frg_treatmentConfirm_llAdmHospt:
 
@@ -194,8 +194,11 @@ public class ConsultationChatRoomFragment extends Fragment
                 JitsiMeetActivity.launch(getActivity(), options);
             }
         });
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.show();
+
+
+
     }
 }
 
