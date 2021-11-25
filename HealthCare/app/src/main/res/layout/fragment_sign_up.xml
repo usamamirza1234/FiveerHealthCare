@@ -129,6 +129,7 @@
                             android:background="@drawable/shp_rect_rounded_gray_mini">
 
                             <EditText
+                                android:id="@+id/edt_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/edttext_height_medium"
                                 android:layout_gravity="center_vertical"
@@ -168,6 +169,8 @@
                             android:background="@drawable/shp_rect_rounded_gray_mini">
 
                             <EditText
+                                android:id="@+id/edt_lastname"
+
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/edttext_height_medium"
                                 android:layout_gravity="center_vertical"
@@ -219,7 +222,7 @@
                             android:paddingStart="14dp"
                             android:paddingEnd="14dp"
                             android:text=""
-
+                            android:id="@+id/edt_email"
                             android:textColor="@color/orange_app"
                             android:textColorHint="@color/orange_app"
                             android:textCursorDrawable="@null"
@@ -262,7 +265,7 @@
                             android:paddingStart="14dp"
                             android:paddingEnd="14dp"
                             android:text=""
-
+                            android:id="@+id/edt_pass"
                             android:textColor="@color/orange_app"
                             android:textColorHint="@color/orange_app"
                             android:textCursorDrawable="@null"

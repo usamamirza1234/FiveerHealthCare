@@ -22,6 +22,7 @@ import com.uk.fiveerhealthcare.AppConfig;
 import com.uk.fiveerhealthcare.IntroActivity;
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
+import com.uk.fiveerhealthcare.Utils.CustomToast;
 
 public class SignInFragment extends Fragment
         implements View.OnClickListener {
@@ -173,14 +174,25 @@ public class SignInFragment extends Fragment
     private void checkErrorConditions() {
         if (checkPasswordError()) {
 
+
+            verifyFromSQLite();
+        }
+    }
+
+
+    private void verifyFromSQLite() {
+
+        if (AppConfig.getInstance().database.checkUser(edtName.getText().toString().trim()
+                , edtPassword.getText().toString().trim())) {
+            CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+            AppConfig.getInstance().mUser.setName(edtName.getText().toString());
+            AppConfig.getInstance().mUser.setEmail(edtName.getText().toString());
             AppConfig.getInstance().mUser.isLoggedIn = true;
             AppConfig.getInstance().saveUserProfile();
-            navToMainActivity();
-//            JsonObject jsonObject = new JsonObject();
-//            jsonObject.addProperty("loginId", edtName.getText().toString());
-//            jsonObject.addProperty("password", edtPassword.getText().toString());
+            ((IntroActivity) getActivity()).navtoMainActivity();
+        } else {
 
-//            requestUserSigin(jsonObject.toString());
+            CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
         }
     }
 

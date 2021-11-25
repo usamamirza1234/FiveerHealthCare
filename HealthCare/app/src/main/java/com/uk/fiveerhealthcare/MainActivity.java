@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.uk.fiveerhealthcare.MainAuxillaries.HomeFragment;
+import com.uk.fiveerhealthcare.MainAuxillaries.ProfileFragment;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
@@ -29,11 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final byte BOTTOM_TAB_PROFILE = 2;
     private final byte BOTTOM_TAB_MORE = 3;
     TextView txvTitle;
-    ImageView imvSearch;
+    ImageView imvSearch, imLogout;
     private FragmentManager fm;
     private RelativeLayout rlToolbar;
     private CheckBox[] arrchbBottomTab;
-//    private TextView[] arrtxvBottomTab;
+    //    private TextView[] arrtxvBottomTab;
     private LinearLayout[] arrllBottomTab;
     private RelativeLayout rlBottomTabContainer;
     private int colorBtabOn, colorBtabOff;
@@ -62,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void bindviews() {
         rlToolbar = findViewById(R.id.act_main_rl_toolbar);
         imvSearch = findViewById(R.id.lay_toolbar_imSearch);
+        imLogout = findViewById(R.id.lay_toolbar_imLogout);
         txvTitle = findViewById(R.id.lay_toolbar_txvTitle);
+
+        imLogout.setOnClickListener(this);
     }
 
     public void navToHomeFragment() {
@@ -115,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setBottomTabVisiblity(View.VISIBLE);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -122,16 +127,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.laybttab_ll_prdhome:
                 navToHomeFragment();
                 break;
+            case R.id.lay_toolbar_imLogout:
+                AppConfig.getInstance().navtoLogin();
+                break;
 
 //            case R.id.laybttab_ll_events:
 //
 //                navToHomeFragment();
 //                break;
 //
-//            case R.id.laybttab_ll_profile:
-//
-//                navToHomeFragment();
-//                break;
+            case R.id.laybttab_ll_profile:
+
+                navToProfileFragment();
+                break;
 //
 //            case R.id.laybttab_ll_more:
 //
@@ -139,6 +147,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                break;
 
         }
+    }
+
+    private void navToProfileFragment()
+    {
+        switchBottomTab(BOTTOM_TAB_PROFILE);
+        clearMyBackStack();
+        Fragment frg = new ProfileFragment();
+//        Fragment frg = new HomeFragment();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.act_main_content_frg, frg, AppConstt.FragTag.FN_ProfileFragment);
+        ft.commit();
     }
     //region IBadgeUpdateListener
 
@@ -203,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
     }
-
 
 
     public void switchBottomTab(int tabNum) {

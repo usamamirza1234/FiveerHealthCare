@@ -4,7 +4,8 @@
     <string name="app_name">MY Bills</string>
     <string name="goole_maps_key">AIzaSyCczk1b8_C7NOm-ZXkj76y6fjBixUTV5qI</string>
     <!--endregion-->
-
+    <string name="facebook_app_id">444582253731242</string>
+    <string name="fb_login_protocol_scheme">fb444582253731242</string>
     <!--region  Screen Titles-->
 
     <!--endregion-->

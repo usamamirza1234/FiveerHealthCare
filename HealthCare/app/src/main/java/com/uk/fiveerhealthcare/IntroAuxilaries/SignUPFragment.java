@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,7 +18,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.uk.fiveerhealthcare.AppConfig;
 import com.uk.fiveerhealthcare.IntroActivity;
 import com.uk.fiveerhealthcare.R;
+import com.uk.fiveerhealthcare.User;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
+import com.uk.fiveerhealthcare.Utils.CustomToast;
 
 public class SignUPFragment extends Fragment
         implements View.OnClickListener {
@@ -26,6 +30,8 @@ public class SignUPFragment extends Fragment
     RelativeLayout rlSignup;
     ImageView imvFB, imvLkdn, imvGogle, imvTwiter;
     private Dialog progressDialog;
+
+    EditText edtName,edtLastname,edtPass,edtEmail;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +53,10 @@ public class SignUPFragment extends Fragment
 
         rlSignup = frg.findViewById(R.id.frg_signup_rlGetStarted);
         txvLogin = frg.findViewById(R.id.frg_signup_txvLogin);
+        edtName = frg.findViewById(R.id.edt_name);
+        edtLastname = frg.findViewById(R.id.edt_lastname);
+        edtPass = frg.findViewById(R.id.edt_pass);
+        edtEmail = frg.findViewById(R.id.edt_email);
 //        edtName = frg.findViewById(R.id.frg_signin_editTextTextPersonName);
 //        edtPassword = frg.findViewById(R.id.frg_signin_editTextTextPassword);
 
@@ -68,6 +78,26 @@ public class SignUPFragment extends Fragment
 
 //        editTextWatchers();
     }
+    private void checkErrorConditions() {
+        if (checkPasswordError()) {
+
+
+            postDataToSQLite();
+        }
+    }
+
+
+    private boolean checkPasswordError() {
+        if (!edtName.getText().toString().equalsIgnoreCase("") && !edtPass.getText().toString().isEmpty()
+                && !edtLastname.getText().toString().isEmpty()
+                && !edtEmail.getText().toString().isEmpty()) {
+            return true;
+        } else {
+            Toast.makeText(getContext(), "Enter all fields", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -75,9 +105,7 @@ public class SignUPFragment extends Fragment
         switch (v.getId()) {
 
             case R.id.frg_signup_rlGetStarted:
-                AppConfig.getInstance().mUser.isLoggedIn = true;
-                AppConfig.getInstance().saveUserProfile();
-                navToMainActivity();
+                checkErrorConditions();
                 break;
             case R.id.frg_signup_imvfb:
                 navToSignUPFBFragment("fb");
@@ -141,7 +169,27 @@ public class SignUPFragment extends Fragment
     }
 
 
+    private void postDataToSQLite() {
 
+        if (!AppConfig.getInstance().database.checkUser(edtEmail.getText().toString().trim()))
+        {
+
+            AppConfig.getInstance().mUser.setName(edtName.getText().toString()+" " + edtLastname.getText().toString());
+            AppConfig.getInstance().mUser.setEmail(edtEmail.getText().toString());
+            AppConfig.getInstance().mUser.isLoggedIn = true;
+            AppConfig.getInstance().saveUserProfile();
+            User user = new User();
+            user.setName(edtName.getText().toString().trim()+" " + edtLastname.getText().toString().trim());
+            user.setEmail(edtEmail.getText().toString().trim());
+            user.setPassword(edtPass.getText().toString().trim());
+            AppConfig.getInstance().database.addUser(user);
+            CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+            ((IntroActivity) getActivity()).navtoMainActivity();
+        } else {
+            CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+
+        }
+    }
 
 //    private void checkErrorConditions() {
 //        if (checkPasswordError()) {

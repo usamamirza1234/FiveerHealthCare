@@ -202,6 +202,7 @@ public interface AppConstt {
         String FN_ConsultationChatRoomFragment ="ConsultationChatRoomFragment" ;
         String FN_CustomerProfileFragment ="CustomerProfileFragment" ;
         String FN_PatientProfileFragment ="PatientProfileFragment" ;
+        String FN_ProfileFragment ="ProfileFragment" ;
     }
 
 

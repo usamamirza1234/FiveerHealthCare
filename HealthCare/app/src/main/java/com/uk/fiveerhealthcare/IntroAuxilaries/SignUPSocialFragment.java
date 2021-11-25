@@ -16,9 +16,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,9 +31,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.uk.fiveerhealthcare.AppConfig;
+import com.uk.fiveerhealthcare.IntroActivity;
 import com.uk.fiveerhealthcare.R;
+import com.uk.fiveerhealthcare.User;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.CustomToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class SignUPSocialFragment extends Fragment
         implements View.OnClickListener {
@@ -207,6 +219,7 @@ public class SignUPSocialFragment extends Fragment
 
     //region Google Facebook Integration
     private void facebookSignin() {
+        Log.i("LoginActivity", "FB Login ");
         callbackManager = CallbackManager.Factory.create();
 //                llFB.setReadPermissions(Arrays.asList(EMAIL));
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -215,42 +228,79 @@ public class SignUPSocialFragment extends Fragment
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         Log.i("LoginActivity", "FB Login Success");
+//                                final AccessToken accessToken = loginResult.getAccessToken();
 
-//
-//
-//                        AccessToken accessToken = loginResult.getAccessToken();
-//                        Profile profile = Profile.getCurrentProfile();
-//
-//                        // Facebook Email address
-//                        GraphRequest request = GraphRequest.newMeRequest(
-//                                loginResult.getAccessToken(),
-//                                new GraphRequest.GraphJSONObjectCallback() {
+//                                GraphRequestAsyncTask request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
 //                                    @Override
-//                                    public void onCompleted(
-//                                            JSONObject object,
-//                                            GraphResponse response) {
-//                                        Log.v("LoginActivity Response ", response.toString());
-//                                        String Name, FEmail;
+//                                    public void onCompleted(JSONObject user, GraphResponse graphResponse) {
+//                                        Log.d(TAG, user.optString("email"));
+//                                        Log.d(TAG, user.optString("name"));
+//                                        Log.d(TAG, user.optString("id"));
+//                                        Log.d(TAG, user.toString());
 //
-//                                        try {
-//                                            Name = object.getString("name");
-//
-//                                            FEmail = object.getString("email");
-//                                            Log.v("Email = ", " " + FEmail);
-////                                                    CustomToast.showToastMessage(getActivity(), "Name " + Name, Toast.LENGTH_LONG);
-//
-//
-////                                            requestSocial( FEmail, Name);
-//
-//                                        } catch (JSONException e) {
-//                                            e.printStackTrace();
-//                                        }
+//                                        requestSocial( user.optString("id")+"@facebook.com", user.optString("name"));
 //                                    }
 //                                });
-//                        Bundle parameters = new Bundle();
-//                        parameters.putString("fields", "id,name,email,gender, birthday");
-//                        request.setParameters(parameters);
-//                        request.executeAsync();
+
+
+                        AccessToken accessToken = loginResult.getAccessToken();
+                        Profile profile = Profile.getCurrentProfile();
+
+                        // Facebook Email address
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(
+                                            JSONObject object,
+                                            GraphResponse response) {
+                                        Log.v("LoginActivity Response ", response.toString());
+                                        String Name, FEmail;
+
+                                        try {
+                                            Name = object.getString("name");
+
+                                            FEmail = object.getString("email");
+                                            Log.v("Email = ", " " + FEmail);
+
+
+                                            if (!AppConfig.getInstance().database.checkUser(FEmail.trim())) {
+
+                                                AppConfig.getInstance().mUser.setName(Name.trim());
+                                                AppConfig.getInstance().mUser.setEmail(FEmail);
+                                                AppConfig.getInstance().mUser.isLoggedIn = true;
+                                                AppConfig.getInstance().saveUserProfile();
+                                                User user = new User();
+                                                user.setName(Name.trim());
+                                                user.setEmail(FEmail.trim());
+                                                user.setPassword("social");
+                                                AppConfig.getInstance().database.addUser(user);
+                                                CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+                                                ((IntroActivity) getActivity()).navtoMainActivity();
+                                            } else if (AppConfig.getInstance().database.checkUser(FEmail.trim()
+                                                    , "social".trim())) {
+                                                CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
+                                                AppConfig.getInstance().mUser.setName(Name.trim());
+                                                AppConfig.getInstance().mUser.setEmail(FEmail);
+                                                AppConfig.getInstance().mUser.isLoggedIn = true;
+
+                                                AppConfig.getInstance().saveUserProfile();
+                                                ((IntroActivity) getActivity()).navtoMainActivity();
+                                            } else {
+                                                CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                                            }
+
+//                                            requestSocial( FEmail, Name);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email,gender, birthday");
+                        request.setParameters(parameters);
+                        request.executeAsync();
 
 
                     }
@@ -270,6 +320,13 @@ public class SignUPSocialFragment extends Fragment
                         Toast.makeText(getContext(), "error_login", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
 
     }
 
@@ -304,11 +361,11 @@ public class SignUPSocialFragment extends Fragment
         try {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         } catch (Exception e) {
-
+            Log.d("LoginActivity", "LoginActivity:FB Exception   " + e.toString());
         }
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Log.d("LOG_AS", "onActivityResult: google sign in " + data.toString());
+            Log.d("LoginActivity", "LoginActivity: google sign in " + data.toString());
             // The Task returned from this call is always completed, no need to attach
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
@@ -319,7 +376,7 @@ public class SignUPSocialFragment extends Fragment
         try {
             account = completedTask.getResult(ApiException.class);
             acct = GoogleSignIn.getLastSignedInAccount(getActivity());
-            Log.d("LOG_AS", "Google Obj : " + acct.getId());
+            Log.d("LoginActivity", "Google Obj : " + acct.getId());
 
             if (acct != null) {
 //                googleUserEmail = acct.getEmail();

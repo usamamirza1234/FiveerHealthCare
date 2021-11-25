@@ -31,6 +31,18 @@
             android:textColor="@color/white"
             android:textSize="@dimen/fontsize_mini" />
 
+
+
+        <ImageView
+            android:id="@+id/lay_toolbar_imLogout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_baseline_login_24" />
+
     </RelativeLayout>
 
 

@@ -37,6 +37,7 @@ import com.uk.fiveerhealthcare.Utils.RModel_onFailureError;
 
 
 public class AppConfig {
+    public Database database;
     private static com.uk.fiveerhealthcare.AppConfig ourInstance;// = new AppConfig(null);
     public CustomAlertDialog customAlertDialog;
     //endregion
@@ -268,7 +269,8 @@ public class AppConfig {
         this.isEnglishMode = true;
         this.mRole = "";
         this.mUser = new DModelUser();
-
+        database = new Database(mContext);
+        database.getWritableDatabase();
         loadUserProfile();
 
 
