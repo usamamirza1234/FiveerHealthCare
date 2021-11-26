@@ -190,12 +190,12 @@ public class SignInFragment extends Fragment
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if(task.isSuccessful())
-                    {
+                    {          ((IntroActivity) getActivity()).navtoMainActivity();
                         AppConfig.getInstance().mUser.setName(edtName.getText().toString());
                         AppConfig.getInstance().mUser.setEmail(edtName.getText().toString());
                         AppConfig.getInstance().mUser.isLoggedIn = true;
                         AppConfig.getInstance().saveUserProfile();
-                        ((IntroActivity) getActivity()).navtoMainActivity();
+
                     } else {
                         CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
                     }

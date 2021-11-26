@@ -76,6 +76,13 @@
                 android:text=""
                 android:textColor="@android:color/darker_gray" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/actionEvent"
+            android:textSize="40sp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
 
     </LinearLayout>
 

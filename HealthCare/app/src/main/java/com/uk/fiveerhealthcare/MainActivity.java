@@ -17,7 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.uk.fiveerhealthcare.MainAuxillaries.CustomerProfileFragment;
 import com.uk.fiveerhealthcare.MainAuxillaries.HomeFragment;
+import com.uk.fiveerhealthcare.MainAuxillaries.PatientProfileFragment;
 import com.uk.fiveerhealthcare.MainAuxillaries.ProfileFragment;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
@@ -27,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final byte BOTTOM_TAB_HOME = 0;
     private final byte NUM_BOTTOM_TABS = 4;
     private final byte BOTTOM_TAB_EVENT = 1;
-    private final byte BOTTOM_TAB_PROFILE = 2;
-    private final byte BOTTOM_TAB_MORE = 3;
+    private final byte BOTTOM_TAB_SEARCH = 2;
+    private final byte BOTTOM_TAB_PROFILE = 3;
     TextView txvTitle;
     ImageView imvSearch, imLogout;
     private FragmentManager fm;
@@ -97,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrllBottomTab = new LinearLayout[NUM_BOTTOM_TABS];
         arrllBottomTab[BOTTOM_TAB_HOME] = findViewById(R.id.laybttab_ll_prdhome);
         arrllBottomTab[BOTTOM_TAB_EVENT] = findViewById(R.id.laybttab_ll_events);
+        arrllBottomTab[BOTTOM_TAB_SEARCH] = findViewById(R.id.laybttab_ll_search);
         arrllBottomTab[BOTTOM_TAB_PROFILE] = findViewById(R.id.laybttab_ll_profile);
-        arrllBottomTab[BOTTOM_TAB_MORE] = findViewById(R.id.laybttab_ll_more);
         for (int i = 0; i < NUM_BOTTOM_TABS; i++)
             arrllBottomTab[i].setOnClickListener(this);
 
@@ -106,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrchbBottomTab = new CheckBox[NUM_BOTTOM_TABS];
         arrchbBottomTab[BOTTOM_TAB_HOME] = findViewById(R.id.laybttab_chb_prdhome);
         arrchbBottomTab[BOTTOM_TAB_EVENT] = findViewById(R.id.laybttab_chb_events);
-        arrchbBottomTab[BOTTOM_TAB_PROFILE] = findViewById(R.id.laybttab_chb_profile);
-        arrchbBottomTab[BOTTOM_TAB_MORE] = findViewById(R.id.laybttab_chb_more);
+        arrchbBottomTab[BOTTOM_TAB_SEARCH] = findViewById(R.id.laybttab_chb_profile);
+        arrchbBottomTab[BOTTOM_TAB_PROFILE] = findViewById(R.id.laybttab_chb_more);
 
 //        arrtxvBottomTab = new TextView[NUM_BOTTOM_TABS];
 //        arrtxvBottomTab[BOTTOM_TAB_HOME] = findViewById(R.id.laybttab_txv_prdhome);
@@ -136,15 +138,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                navToHomeFragment();
 //                break;
 //
+            case R.id.laybttab_ll_search:
+                navToCustomerProfileFragment();
+
+                break;
+//
             case R.id.laybttab_ll_profile:
 
                 navToProfileFragment();
                 break;
-//
-//            case R.id.laybttab_ll_more:
-//
-//                navToHomeFragment();
-//                break;
 
         }
     }
@@ -153,12 +155,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         switchBottomTab(BOTTOM_TAB_PROFILE);
         clearMyBackStack();
-        Fragment frg = new ProfileFragment();
+        Fragment frg = new PatientProfileFragment();
 //        Fragment frg = new HomeFragment();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.act_main_content_frg, frg, AppConstt.FragTag.FN_ProfileFragment);
         ft.commit();
     }
+
+
+    private void navToCustomerProfileFragment()
+    {
+        switchBottomTab(BOTTOM_TAB_SEARCH);
+        clearMyBackStack();
+        Fragment frg = new CustomerProfileFragment();
+//        Fragment frg = new HomeFragment();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.act_main_content_frg, frg, AppConstt.FragTag.FN_CustomerProfileFragment);
+        ft.commit();
+    }
+
     //region IBadgeUpdateListener
 
     @Override

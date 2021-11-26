@@ -36,7 +36,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,11 +53,9 @@ import java.util.Arrays;
 
 public class SignUPSocialFragment extends Fragment
         implements View.OnClickListener {
+    private static final int RC_SIGN_IN = 9001;
     FirebaseFirestore database;
     FirebaseAuth auth;
-
-
-    private static final int RC_SIGN_IN = 9001;
     TextView txvLogin;
     Bundle bundle;
     ImageView imvFB, imvLkdn, imvGogle, imvTwiter;
@@ -68,6 +65,8 @@ public class SignUPSocialFragment extends Fragment
     GoogleSignInAccount acct, account;
     GoogleSignInClient mGoogleSignInClient;
     CallbackManager callbackManager;
+    //endregion
+    private Dialog progressDialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -137,7 +136,6 @@ public class SignUPSocialFragment extends Fragment
         }
         googleInit();
     }
-
 
     private void bindviews(View frg) {
         txvLogin = frg.findViewById(R.id.frg_signupfb_txvLogin);
@@ -229,7 +227,6 @@ public class SignUPSocialFragment extends Fragment
         }
     }
 
-
     //region Google Facebook Integration
     private void facebookSignin() {
         showProgDialog();
@@ -270,43 +267,40 @@ public class SignUPSocialFragment extends Fragment
                                             JSONObject object,
                                             GraphResponse response) {
                                         Log.v("LoginActivity Response ", response.toString());
-                                        String Name, FEmail;
+
+
+                                        String Name, FEmail,responseCode,error,id;
 
                                         try {
-                                            Name = object.getString("name");
-
-                                            FEmail = object.getString("email");
-                                            Log.v("Email = ", " " + FEmail);
-
-
-                                            if (!AppConfig.getInstance().database.checkUser(FEmail.trim())) {
-
-                                                AppConfig.getInstance().mUser.setName(Name.trim());
-                                                AppConfig.getInstance().mUser.setEmail(FEmail);
-                                                AppConfig.getInstance().mUser.isLoggedIn = true;
-                                                AppConfig.getInstance().saveUserProfile();
-                                                User user = new User();
+                                            responseCode= object.getString("responseCode");
+                                            if (responseCode.equalsIgnoreCase("200"))
+                                            {
+                                                FEmail = object.getString("email");
+                                                Name = object.getString("name");
+                                                id =object.getString("id");
+                                                error =object.getString("error");
+                                                final User user = new User();
                                                 user.setName(Name.trim());
                                                 user.setEmail(FEmail.trim());
                                                 user.setPassword("social");
-                                                AppConfig.getInstance().database.addUser(user);
-                                                CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
-                                                ((IntroActivity) getActivity()).navtoMainActivity();
-                                            } else if (AppConfig.getInstance().database.checkUser(FEmail.trim()
-                                                    , "social".trim())) {
-                                                CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
-                                                AppConfig.getInstance().mUser.setName(Name.trim());
-                                                AppConfig.getInstance().mUser.setEmail(FEmail);
-                                                AppConfig.getInstance().mUser.isLoggedIn = true;
 
-                                                AppConfig.getInstance().saveUserProfile();
-                                                ((IntroActivity) getActivity()).navtoMainActivity();
-                                            } else {
-                                                CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                                                auth.createUserWithEmailAndPassword(FEmail.trim(), "social").addOnCompleteListener(task -> {
+                                                    if (task.isSuccessful()) {
+                                                        database.collection("Users")
+                                                                .document().set(user).addOnSuccessListener(aVoid -> {
+                                                                    AppConfig.getInstance().mUser.setName(Name.trim());
+                                                                    AppConfig.getInstance().mUser.setEmail(FEmail);
+                                                                    AppConfig.getInstance().mUser.isLoggedIn = true;
+                                                                    AppConfig.getInstance().saveUserProfile();
+                                                            ((IntroActivity)getActivity()).navtoMainActivity();
+                                                                });
+
+                                                    } else {
+                                                        CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
+                                                    }
+                                                });
+
                                             }
-
-//                                            requestSocial( FEmail, Name);
-
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -321,7 +315,8 @@ public class SignUPSocialFragment extends Fragment
                     }
 
                     @Override
-                    public void onCancel() {   dismissDialog();
+                    public void onCancel() {
+                        dismissDialog();
                         // App code
                         Log.i("LoginActivity", "FB Login Cancel");
                         LoginManager.getInstance().logOut();
@@ -345,7 +340,6 @@ public class SignUPSocialFragment extends Fragment
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
 
     }
-
 
     private void googleInit() {
 
@@ -408,34 +402,17 @@ public class SignUPSocialFragment extends Fragment
                 auth.createUserWithEmailAndPassword(acct.getEmail(), "social").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             database.collection("Users")
                                     .document().set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
 
-                                    if (!AppConfig.getInstance().database.checkUser(acct.getEmail().trim())) {
-
-                                        AppConfig.getInstance().mUser.setName(acct.getDisplayName().trim());
-                                        AppConfig.getInstance().mUser.setEmail(acct.getEmail().toString());
-                                        AppConfig.getInstance().mUser.isLoggedIn = true;
-                                        AppConfig.getInstance().saveUserProfile();
-
-                                        AppConfig.getInstance().database.addUser(user);
-                                        CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
-                                        ((IntroActivity) getActivity()).navtoMainActivity();
-                                    } else if (AppConfig.getInstance().database.checkUser(acct.getEmail().toString().trim()
-                                            , "social".trim())) {
-                                        CustomToast.showToastMessage(getActivity(), "Login successful ", Toast.LENGTH_LONG);
-                                        AppConfig.getInstance().mUser.setName(acct.getDisplayName().trim());
-                                        AppConfig.getInstance().mUser.setEmail(acct.getEmail().toString());
-                                        AppConfig.getInstance().mUser.isLoggedIn = true;
-
-                                        AppConfig.getInstance().saveUserProfile();
-                                        ((IntroActivity) getActivity()).navtoMainActivity();
-                                    } else {
-                                        CustomToast.showToastMessage(getActivity(), "Failed to login", Toast.LENGTH_LONG);
-                                    }
+                                    AppConfig.getInstance().mUser.setName(acct.getDisplayName().trim());
+                                    AppConfig.getInstance().mUser.setEmail(acct.getEmail());
+                                    AppConfig.getInstance().mUser.isLoggedIn = true;
+                                    AppConfig.getInstance().saveUserProfile();
+                                    ((IntroActivity)getActivity()).navtoMainActivity();
 
 
                                 }
@@ -459,9 +436,6 @@ public class SignUPSocialFragment extends Fragment
         }
     }
 
-
-    //endregion
-    private Dialog progressDialog;
     private void dismissDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();

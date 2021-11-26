@@ -1,20 +1,27 @@
 package com.uk.fiveerhealthcare.MainAuxillaries;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.uk.fiveerhealthcare.AppConfig;
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
-import com.uk.fiveerhealthcare.Utils.CircleImageView;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
+
+import static android.content.Context.SENSOR_SERVICE;
+
 
 public class ProfileFragment extends Fragment
         implements View.OnClickListener {
@@ -22,12 +29,9 @@ public class ProfileFragment extends Fragment
     IBadgeUpdateListener mBadgeUpdateListener;
 
 
-
-
     public TextView textViewName;
     public TextView textViewEmail;
     public TextView textViewPassword;
-
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +49,7 @@ public class ProfileFragment extends Fragment
     }
 
     private void init() {
+
         setBottomBar();
 
     }
@@ -56,10 +61,15 @@ public class ProfileFragment extends Fragment
         textViewEmail = (TextView) frg.findViewById(R.id.textViewEmail);
         textViewPassword = (TextView) frg.findViewById(R.id.textViewPassword);
 
+        textViewName.setText(AppConfig.getInstance().mUser.getName());
+        textViewEmail.setText(AppConfig.getInstance().mUser.getEmail());
 
 
 
+    } public void onResume(){
+        super.onResume();
     }
+
 
     @Override
     public void onClick(View v) {
@@ -68,7 +78,6 @@ public class ProfileFragment extends Fragment
 
         }
     }
-
 
 
     void setBottomBar() {
@@ -90,4 +99,9 @@ public class ProfileFragment extends Fragment
             setBottomBar();
         }
     }
+
+
+
+
+
 }

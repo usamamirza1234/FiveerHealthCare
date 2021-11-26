@@ -154,12 +154,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/frg_treatmentConfirm_llSelectPayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:background="@drawable/shp_rect_rounded_blue2_small">
+                android:background="@drawable/shp_rect_rounded_maroon_small">
 
                 <TextView
 
@@ -171,13 +172,14 @@
                     android:padding="5dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:text="Select\nPayment Method"
+                    android:text="Pay now"
                     android:textColor="@color/white"
                     android:textSize="@dimen/fontsize_mini" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

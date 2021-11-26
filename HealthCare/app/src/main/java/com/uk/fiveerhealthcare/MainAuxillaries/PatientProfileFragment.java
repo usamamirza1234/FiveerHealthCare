@@ -1,20 +1,33 @@
 package com.uk.fiveerhealthcare.MainAuxillaries;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -25,7 +38,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -33,27 +45,37 @@ import com.robinhood.spark.SparkAdapter;
 import com.robinhood.spark.SparkView;
 import com.uk.fiveerhealthcare.R;
 import com.uk.fiveerhealthcare.Utils.AppConstt;
+import com.uk.fiveerhealthcare.Utils.CustomToast;
 import com.uk.fiveerhealthcare.Utils.IBadgeUpdateListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.SENSOR_SERVICE;
 import static android.graphics.Color.RED;
 
 public class PatientProfileFragment extends Fragment
         implements View.OnClickListener {
 
     public LineChart lineChartDownFill;
+    RelativeLayout llCheckHB;
+    TextView txvHeartbeat;
+    TextView txvMeasuring;
     IBadgeUpdateListener mBadgeUpdateListener;
 
     BarChart severityBarChart;
 
+    SensorManager mSensorManager;
+    Sensor mHeartRateSensor;
+    boolean checkHR = true;
     ArrayList<BarEntry> yValue = new ArrayList<>();
     List<Float> data = new ArrayList<>();
     List<Float> data1 = new ArrayList<>();
     List<Float> data2 = new ArrayList<>();
     List<Float> data3 = new ArrayList<>();
     ArrayList<String> severityStringList = new ArrayList<>();
+    private String TAG="timer" ;
+    private int bpm =0;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,29 +83,129 @@ public class PatientProfileFragment extends Fragment
 
         init();
         bindviews(frg);
-//        iinit();
-//        populateGraphData();
         initializeBarChart();
         onPostSeveritylist();
+
+
         return frg;
 
     }
 
+    public void checkHB() {
+        final boolean[] timer = {false};
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                txvMeasuring.setVisibility(View.VISIBLE);
+                timer[0] = true;
+                txvMeasuring.setText("Mesuring ... " + millisUntilFinished / 1000+" seconds are remaining");
+                Log.d(TAG, "onTick: "+"seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                timer[0] = false;
+                txvMeasuring.setVisibility(View.GONE);
+                if ((int) bpm > 0 && (int) bpm < 83) {
+                    ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+                    toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 500);
+                }
+                else if ((int) bpm > 165 ){
+                    ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+                    toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 500);
+                }
+                else {
+                    CustomToast.showToastMessage(getActivity(), "Average BPM", Toast.LENGTH_LONG);
+
+                }
+                Log.d(TAG, "onTick: "+"seconds done: ");
+            }
+        }.start();
+
+
+        SensorEventListener sensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+              if ( timer[0] )
+              {
+                  if (checkHR) {
+                      if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
+                          if ((int) event.values[0] > 0)
+                          {
+
+                              bpm = (int) event.values[0];
+                              String msg = "" + (int) event.values[0];
+                              txvHeartbeat.setText(msg + " bmp");
+                              Log.d("Sensor", "onSensorChanged " + msg);
+                              checkHR = false;
+
+                          }
+                      }
+                  }
+              }
+
+
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                Log.d("Sensor", "onAccuracyChanged - accuracy: " + accuracy);
+            }
+        };
+        mSensorManager.registerListener(sensorEventListener, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        CustomToast.showToastMessage(getActivity(), "Place finger on sensor and hold for 1 minute", Toast.LENGTH_LONG);
+
+        Log.i("Sensor", "LISTENER REGISTERED.");
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkHR = true;
+                handler.postDelayed(this, 50);
+            }
+        }, 1);
+//        if (mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_BEAT) == null) {
+//            CustomToast.showToastMessage(getActivity(), "Your phone do not have Heart Rate support", Toast.LENGTH_LONG);
+//        } else {
+//            CustomToast.showToastMessage(getActivity(), "Place finger on sensor and hold for 1 minute", Toast.LENGTH_LONG);
+//
+//            Log.i("Sensor", "LISTENER REGISTERED.");
+//
+//            final Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    checkHR = true;
+//                    handler.postDelayed(this, 100);
+//                }
+//            }, 1);
+//
+//        }
+    }
 
 
     private void init() {
         setBottomBar();
-
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                1);
     }
 
     private void bindviews(View frg) {
 
+        mSensorManager = ((SensorManager) getActivity().getSystemService(SENSOR_SERVICE));
+        mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+
+
         initLineChartDownFill(frg);
         SparkView sparkView = frg.findViewById(R.id.sparkview);
+        llCheckHB = frg.findViewById(R.id.frg_customer_profile_llStatus);
 
         SparkView sparkView2 = frg.findViewById(R.id.sparkview2);
         SparkView sparkView3 = frg.findViewById(R.id.sparkview3);
         severityBarChart = frg.findViewById(R.id.barChart);
+        txvHeartbeat = frg.findViewById(R.id.txvHeartbeat);
+        txvMeasuring = frg.findViewById(R.id.txvMeasuring);
 
         data.add(2.4f);
         data.add(3.4f);
@@ -104,6 +226,8 @@ public class PatientProfileFragment extends Fragment
 
         sparkView2.setAdapter(new MyAdapter(data1));
         sparkView3.setAdapter(new MyAdapter(data));
+        llCheckHB.setOnClickListener(this);
+
     }
 
     void setBottomBar() {
@@ -130,7 +254,9 @@ public class PatientProfileFragment extends Fragment
     public void onClick(View v) {
 
         switch (v.getId()) {
-
+            case R.id.frg_customer_profile_llStatus:
+                checkHB();
+                break;
         }
     }
 
@@ -228,8 +354,6 @@ public class PatientProfileFragment extends Fragment
     }
 
 
-
-
     private void initializeBarChart() {
         severityBarChart.getDescription().setEnabled(false);
 
@@ -302,12 +426,10 @@ public class PatientProfileFragment extends Fragment
 //            severityBarChart.getBarData().setBarWidth(0.30f);
 
 
-
-
             xAxis.setValueFormatter(new IndexAxisValueFormatter(severityStringList));//setting String values in Xaxis
 
 
-                YAxis yAxis = severityBarChart.getAxisLeft();
+            YAxis yAxis = severityBarChart.getAxisLeft();
             yAxis.setValueFormatter(new LargeValueFormatter());
             yAxis.setDrawGridLines(false);
             yAxis.setSpaceTop(1f);
@@ -346,6 +468,32 @@ public class PatientProfileFragment extends Fragment
         severityStringList.addAll(xAxisValues);
 
         createBarChart(data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getContext(), "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     public class MyAdapter extends SparkAdapter {

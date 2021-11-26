@@ -26,6 +26,7 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 
 
 public class ConsultationChatRoomFragment extends Fragment
@@ -64,7 +65,8 @@ public class ConsultationChatRoomFragment extends Fragment
             JitsiMeetConferenceOptions defaultOptions =
                     new JitsiMeetConferenceOptions.Builder()
                             .setServerURL(serverURL)
-                            .setWelcomePageEnabled(false)
+                            .setWelcomePageEnabled(true)
+
                             .build();
             JitsiMeet.setDefaultConferenceOptions(defaultOptions);
         } catch (MalformedURLException e) {
@@ -178,27 +180,36 @@ public class ConsultationChatRoomFragment extends Fragment
     private void showProgDialog() {
         progressDialog = new Dialog(getActivity(), R.style.AppTheme);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
         progressDialog.setContentView(R.layout.dialog_video_call);
         secretCodeBox = progressDialog.findViewById(R.id.codeBox);
         joinBtn = progressDialog.findViewById(R.id.joinBtn);
         shareBtn = progressDialog.findViewById(R.id.shareBtn);
-        joinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismissDialog();
-                JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
-                        .setRoom(secretCodeBox.getText().toString())
-                        .setWelcomePageEnabled(false)
-                        .build();
 
-                JitsiMeetActivity.launch(getActivity(), options);
-            }
+        secretCodeBox.setText( getRandomString(6));
+        joinBtn.setOnClickListener(v -> {
+            dismissDialog();
+            JitsiMeetConferenceOptions options = new
+                    JitsiMeetConferenceOptions.Builder()
+                    .setRoom(secretCodeBox.getText().toString())
+                    .setWelcomePageEnabled(false)
+                    .setSubject("Consultation")
+                    .build();
+            JitsiMeetActivity.launch(getActivity(), options);
         });
         progressDialog.setCancelable(true);
         progressDialog.show();
+    }
 
+    private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
 
-
+    private static String getRandomString(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
     }
 }
 

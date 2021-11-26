@@ -139,7 +139,7 @@
                 android:padding="10dp"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
-                android:text="Check status"
+                android:text="Check Heart beat"
                 android:textColor="@color/black_app2"
                 android:textSize="@dimen/fontsize_mini"
                 android:textStyle="bold" />
@@ -187,6 +187,18 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:visibility="gone"
+                            android:id="@+id/txvMeasuring"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Measuring ... "
+                            android:textColor="@color/red_app"
+                            android:textSize="@dimen/fontsize_small"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/txvHeartbeat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -302,6 +314,11 @@
                             android:textSize="@dimen/fontsize_tiny" />
                     </LinearLayout>
                 </LinearLayout>
+
+
+
+
+
             </LinearLayout>
 
 

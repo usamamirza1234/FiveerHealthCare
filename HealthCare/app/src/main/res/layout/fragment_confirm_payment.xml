@@ -75,11 +75,16 @@
             </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/lay_prog_ll_today"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
 
                 android:layout_weight="25"
                 android:gravity="start"
@@ -114,7 +119,7 @@
                 android:id="@+id/lay_prog_ll_yesterday"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
 
                 android:layout_weight="25"
                 android:gravity="start"
@@ -144,6 +149,7 @@
 
 
             </LinearLayout>
+        </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/frg_treatmentConfirm_llNext"
